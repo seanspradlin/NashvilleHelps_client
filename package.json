@@ -1,0 +1,24 @@
+{
+  "name": "nashvillehelps",
+  "version": "1.0.0",
+  "description": "Nashville Helps is a team of non-profit organizations, educators, and other social service providers in the Nashville area that help connect adults to the resources they need.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katerebekah/NashvilleHelps_client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katerebekah/NashvilleHelps_client/issues"
+  },
+  "homepage": "https://github.com/katerebekah/NashvilleHelps_client#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-materialize": "^0.2.1",
+    "materialize-css": "^0.97.7"
+  }
+}
