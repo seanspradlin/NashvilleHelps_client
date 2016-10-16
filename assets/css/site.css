@@ -1,0 +1,23 @@
+body {
+    height: 100%;
+    background-image: url("./../images/batman.png");
+    background-position: bottom right;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size:25%;
+}
+
+.section {
+    padding: 100px;
+}
+
+.section:nth-child(even) {
+    background-color: #e0e0e0;
+}
+.section:nth-child(even) label {
+    color: #757575;
+}
+
+h4 {
+    text-align: center;
+}
