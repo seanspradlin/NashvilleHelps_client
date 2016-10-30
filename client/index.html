@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Nashville Helps</title>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
+	/>
+	<link rel="stylesheet" href="./../assets/css/site.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body ng-app="nashhelps.client" ng-controller="clientController">
+
+	<div class="row">
+		<div class="col s3">
+			<br>
+			<a href="/" class="grey lighten-3 grey-text text-darken-4 btn">Back</a></div>
+	</div>
+	<div ng-show="success">
+		<br>
+		<br>
+
+		<div class="row">
+			<div class="col s8 offset-s2">
+				<div class="card green lighten-4">
+				<div class="card-content">
+					<h4><span class="card-title">Success!</span></h4>
+					<p>Thanks for submitting your information! Someone will contact you from one of our partner organizations soon with details on how they can help.</p>
+					<br>
+					<p>To request more information about Nashville Helps, please contact NashvilleHelps@gmail.com, or Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
+				</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div ng-show="error">
+		<div class="row">
+			<div class="col s8 offset-s2">
+				<div class="card red lighten-4">
+				<div class="card-content">
+					<h4><span class="card-title">Error:</span></h4>
+					<p>{{errorMessage}}</p>
+					<br>
+					<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
+				</div></div>
+			</div>
+		</div>
+
+	</div>
+	<div ng-hide="success">
+		<form id="clientForm" class="col s12">
+			<div class="section">
+				<h4>What is your name?</h4>
+				<div class="row">
+					<div class="input-field col s6">
+						<input required id="first_name" type="text" ng-model="client.first_name" class="validate">
+						<label for="first_name">First Name</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="last_name" type="text" ng-model="client.last_name" class="validate">
+						<label for="last_name">Last Name</label>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<h4>Please provide the safest number where someone can reach you.</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="phone" type="text" ng-model="client.phone" class="validate">
+						<label for="phone">Primary Phone Number</label>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<h4>What is your email address?</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="email" type="email" ng-model="client.email" class="validate">
+						<label for="email">Email</label>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<h4>What is your address?</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						<input type="text" id="streetAddress" ng-model="client.street1" class="validate">
+						<label for="streetAddress">Street Address</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input type="text" id="streetAddress2" ng-model="client.street2" class="validate">
+						<label for="streetAddress2">Street Address 2</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s5">
+						<input type="text" id="city" ng-model="client.city" class="validate">
+						<label for="city">City</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="state" ng-model="client.state" class="validate">
+						<label for="streetAddress">State</label>
+					</div>
+					<div class="input-field col s4">
+						<input type="text" id="zipCode" ng-model="client.postal" class="validate">
+						<label for="zipCode">Zip Code</label>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<h4>Any additional contact info?</h4>
+				<p>Please provide a way to contact you if you did not provide a phone number, email address, or physical address. If you
+					would like someone to communicate in English on your behalf, please provide their name, phone number, and address here.
+					Any notes about best method and time to contact you should go here, too.</p>
+				<div class="row">
+					<div class="input-field col12">
+						<textarea id="notes" class="materialize-textarea" ng-model="client.notes"></textarea>
+						<label for="notes">Notes</label>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<h4>What types of services do you need?</h4>
+				<div class="row">
+					<ul ng-repeat="category in categories" class="collection with-header">
+						<li class="collection-header">
+							{{category}}
+						</li>
+						<li class="collection-item" ng-repeat="service in services | filter:category:true:service.category" ng-class="{'active': isActive(service) }" ng-click="toggleService(service)" >
+							<h5>{{service.name}}<a class="secondary-content"><i class="material-icons">add</i></a></h5>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="section">
+				<div class="row">
+					<h4>Did anyone help you fill out this form today?</h4>
+					<p>If any person or organization helped you fill out this form, please enter in his or her name and organization (if applicable)
+						below.
+					</p>
+					<div class="input-field col12">
+						<input type="text" id="organizationAssisting" ng-model="client.assistant" class="validate">
+						<label for="organizationAssisting">Name and Organization Assisting</label>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<div class="row">
+					<h4>Consent</h4>
+					<p>I consent to the above information being sent to Nashville Helps organizations. I understand that the information in
+						this form will be kept private. I also understand that sharing this information is voluntary, and that I may withdraw
+						my permission to share information at any time, through written request to NashvilleHelps@gmail.com, or by contacting
+						Megan Godbey at (615) 880-2264 or megan.godbey@nashville.gov</p>
+					<br>
+					<div class="col s12 center-align">
+						<p>
+							<input required id="consent" type="checkbox" ng-model="consent">
+							<label for="consent">I consent to the above information.</label>
+						</p>
+						<button type="submit" ng-click="submit(client)" ng-class="{'disabled': !consent }" class="blue center-align waves-effect waves-light btn">Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+	<script src="./../node_modules/jquery/dist/jquery.js"></script>
+	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>	
+	<script src="./../node_modules/angular/angular.js"></script>
+	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
+	<script src="./../app.js"></script>
+	<script src="./../services/services.js"></script>
+	<script src="./../services/servicesService.js"></script>
+	<script src="client.js"></script>
+	<script src="clientController.js"></script>
+	<script src="clientService.js"></script>
+</body>
+
+</html>
