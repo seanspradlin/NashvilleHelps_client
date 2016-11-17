@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body ng-app="nashhelps.client" ng-controller="clientController">
+<body ng-app="nashhelps.client" ng-controller="clientController" ng-cloak>
 
 	<div class="row">
 		<div class="col s3">
@@ -126,11 +126,11 @@
 			<div class="section">
 				<h4>What types of services do you need?</h4>
 				<div class="row">
-					<ul ng-repeat="category in categories" class="collection with-header">
+					<ul ng-repeat="category in categories track by $index" class="collection with-header">
 						<li class="collection-header">
 							{{category}}
 						</li>
-						<li class="collection-item" ng-repeat="service in services | filter:category:true:service.category" ng-class="{'active': isActive(service) }" ng-click="toggleService(service)" >
+						<li class="collection-item" ng-repeat="service in services | filter: {category: category}" ng-class="{'active': isActive(service) }" ng-click="toggleService(service)" >
 							<h5>{{service.name}}<a class="secondary-content"><i class="material-icons">add</i></a></h5>
 						</li>
 					</ul>
@@ -174,8 +174,8 @@
 	<script src="./../node_modules/angular/angular.js"></script>
 	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
 	<script src="./../app.js"></script>
-	<script src="./../services/services.js"></script>
-	<script src="./../services/servicesService.js"></script>
+	<script src="./../admin/services.js"></script>
+	<script src="./../admin/servicesService.js"></script>
 	<script src="client.js"></script>
 	<script src="clientController.js"></script>
 	<script src="clientService.js"></script>

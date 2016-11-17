@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Nashville Helps</title>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
+	/>
+	<link rel="stylesheet" href="./../assets/css/site.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body ng-app="nashhelps.admin" ng-controller="reportController">
+	<nav class="blue-grey darken-4">
+		<div class="nav-wrapper container">
+			<a href="/" class="brand-logo">Nashville Helps</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="/logout">Log Out</a></li>
+				<li><a href="/dashboard">Dashboard</a></li>
+				<li><a href="/admin">Admin</a></li>
+			</ul>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<div class="container">
+
+		<div ng-show="success">
+			<br>
+			<br>
+
+			<div class="row">
+				<div class="col s8 offset-s2">
+					<div class="card green lighten-4">
+						<div class="card-content">
+							<p>Your changes have been saved succesfully.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div ng-show="error">
+			<div class="row">
+				<div class="col s8 offset-s2">
+					<div class="card red lighten-5">
+						<div class="card-content">
+							<p>{{errorMessage}}</p>
+							<br>
+							<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+        <!-- INSERT TABLE HERE 
+          # services requested; average 
+          # services fulfilled
+          List of clients by zip code or service
+          List of agencies that have fulfilled a request by frequency
+          # of services requested / # of agencies per service category
+          # of unfulfilled requests
+        -->
+        <table class="striped">
+            <thead>
+                <h1>Services</h1>
+                <tr>
+                    <td>Service Name</td>
+                    <td>Category</td>
+                    <td>Agencies Providing</td>
+                    <td>Last Month</td>
+                    <td>Fulfilled</td>
+                    <td>Last Quarter</td>
+                    <td>Fulfilled</td>
+                    <td>Last Year</td>
+                    <td>Fulfilled</td>
+                    <td>All Time</td>
+                    <td>Fulfilled</td>
+                </tr>
+            </thead>
+            <tbody>
+				<tr ng-repeat="referral in referrals">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+        </table>
+
+        <table class="striped">
+            <thead>
+                <h1>Clients</h1>
+                <tr>
+                    <td>Client Name</td>
+                    <td>Zip Code</td>
+                    <td>Services Requested</td>
+                    <td>Services Fulfilled</td>
+                    <td>Agencies Helping</td>
+                    <td>Date Requested</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <table class="striped">
+            <thead>
+                <h1>Agencies</h1>
+                <tr>
+                    <td>Agency Name</td>
+                    <td>Services Offered</td>
+                    <td>Last Month</td>
+                    <td>Last Quarter</td>
+                    <td>Last Year</td>
+                    <td>All Time</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+	</div>
+
+	<script src="./../node_modules/jquery/dist/jquery.js"></script>
+	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>
+	<script src="./../node_modules/angular/angular.js"></script>
+	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
+	<script src="./../app.js"></script>
+	<script src="./../client/client.js"></script>
+	<script src="admin.js"></script>
+	<script src="servicesService.js"></script>
+	<script src="agencyService.js"></script>
+	<script src="./../client/clientservice.js"></script>
+	<script src="reportController.js"></script>
+</body>
+
+</html>

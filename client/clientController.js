@@ -13,7 +13,6 @@
             $scope.categories = [];
 
             function init(){
-                $scope.getCategories();
                 $scope.getServices();
             }
 

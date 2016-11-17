@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Arvo');
+
 body {
     height: 100%;
     background-image: url("./../images/batman.png");
@@ -20,4 +22,12 @@ body {
 
 h4 {
     text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Arvo"
+}
+
+.collection-item{
+ cursor: pointer;
 }

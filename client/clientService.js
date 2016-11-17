@@ -23,6 +23,17 @@
             )
         }
 
+        function getReferrals(){
+            return getClients().then(function(res){
+                console.log(res);
+                var referrals = [];
+                res.forEach(function(value, index, array){
+                    referrals = referrals.concat(value.referrals);
+                });
+                return referrals;                              
+            })
+        }
+
         function completeReferral(clientId, serviceId){
             $http.post(clientApi + clientId + '/service/' + serviceId)
                 .then(
@@ -34,6 +45,7 @@
         return {
             addClient: addClient,
             getClients: getClients,
+            getReferrals: getReferrals,
             completeReferral: completeReferral
         }
     }
