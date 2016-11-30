@@ -6,7 +6,8 @@
 
     function dashboardController($scope, clientService){
         $scope.clients = [];
-        
+        $scope.completeReferral = {};
+
         function init(){
             $scope.getClients();
         }
@@ -25,8 +26,14 @@
                 );
         }
 
-        $scope.markComplete = function(clientId, serviceId){
-            clientService.completeReferral(clientId, serviceId)
+        $scope.confirmComplete = function(clientId, referralId){
+            $scope.completeReferral.client_id = clientId;
+            $scope.completeReferral.service_id = referralId;
+            $scope.completeReferral.notes = '';
+        }
+
+        $scope.markComplete = function(referral){
+            clientService.completeReferral(referral)
                 .then(  
                     function(res){
                         $scope.success = true;

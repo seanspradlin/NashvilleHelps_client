@@ -34,8 +34,8 @@
             })
         }
 
-        function completeReferral(clientId, serviceId){
-           return $http.post(clientApi + "/" + clientId + '/service/' + serviceId)
+        function completeReferral(referral){
+           return $http.post(clientApi + "/" + referral.client_id + '/service/' + referral.service_id)
                 .then(
                     function(res){
                     return res;
