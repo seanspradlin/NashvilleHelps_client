@@ -15,6 +15,7 @@
             clientService.getClients()
                 .then(
                     function(res){
+                        console.log(res);
                         $scope.clients = res;
                     },
                     function(err){

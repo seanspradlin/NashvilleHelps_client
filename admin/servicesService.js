@@ -15,7 +15,7 @@
         }
 
         function getCategories() {
-            getServices()
+            return getServices()
                 .then(function(res){
                     var data = res.data;
                     data = data.map(function(value, index, array){

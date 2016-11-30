@@ -29,10 +29,50 @@
 
         }
 
-        function getClients(){}
-        function getAgencies(){}
-        function getServices(){}
-        function getReferrals(){}
+        function getClients(){
+            clientService.getClients()
+            .then(
+                function(res){
+                    clients = res;
+                },
+                function(err){
+
+                }
+            );
+        }
+        
+        function getAgencies(){
+            agencyService.getAgencies()
+            .then(
+                function(res){
+                    agencies = res;                },
+                function(err){
+
+                }
+            );
+        }
+
+        function getServices(){
+            servicesService.getServices()
+            .then(
+                function(res){
+                    services = res;
+                }, function (err){
+
+                }
+            );
+        }
+        function getReferrals(){
+            clientServices.getReferrals()
+            .then(
+                function(res){
+                    referrals = res;
+                },
+                function(err){
+
+                }
+            )
+        }
 
         function populateService(id){
             //gives a service id, returns service name

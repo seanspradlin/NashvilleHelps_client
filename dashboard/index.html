@@ -75,7 +75,7 @@
 					<h6>Services Requested:</h6>
 					<div>
 						<br>
-						<a ng-click="markComplete(client._id, referral.service)" ng-class="{'orange': referral.isComplete}" ng-repeat="referral in client.referrals" class="blue-grey lighten-2 chip"><span class="white-text">{{referral.service_name}}</span></a>
+						<a ng-click="markComplete(client._id, referral.service)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }" class="lighten-2 chip"><span class="white-text">{{referral.service_name}}</span></a>
 					</div>
 				</div>
 			</div>

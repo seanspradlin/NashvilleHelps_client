@@ -35,7 +35,7 @@
         }
 
         function completeReferral(clientId, serviceId){
-            $http.post(clientApi + clientId + '/service/' + serviceId)
+           return $http.post(clientApi + "/" + clientId + '/service/' + serviceId)
                 .then(
                     function(res){
                     return res;
