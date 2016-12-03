@@ -42,7 +42,7 @@
 
 
         var updateAccount = function(acc){
-            return $http.post(accountApiUrl)
+            return $http.post(accountApiUrl, acc)
             .then(function(res){
                     return res;
                 }, function(err){

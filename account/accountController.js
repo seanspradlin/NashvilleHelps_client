@@ -44,7 +44,6 @@
         }
 
         $scope.saveProfile = function(account){
-            console.log(account);
             accountService.updateAccount(account)
                 .then(
                     function(res){

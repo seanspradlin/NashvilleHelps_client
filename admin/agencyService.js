@@ -20,7 +20,14 @@
         function addServiceToAgency(){}
         function removeServiceFromAgency(){}
         function createRegistrationTokenForAgency(){}
-        function addAgency(){}
+        
+        function addAgency(agency){
+            return $http.post(agencyApi, agency)
+                .then(function(res){
+                    return res;
+                })
+        }
+        
         function deleteAgency(){}
         function updateAgency(){}
 

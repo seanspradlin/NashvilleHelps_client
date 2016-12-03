@@ -8,13 +8,45 @@
         $scope.services = [];
         $scope.categories = [];
         $scope.users = [];
-        
+        $scope.agencies = [];
+
         function init(){
-            $scope.getServices();
-            $scope.getUsers();
+            getServices();
+            getUsers();
+            getAgencies();
         }
 
-        $scope.getUsers = function(){
+        function getAgencies(){
+            agencyService.getAgencies()
+                .then(function(res){
+                    $scope.agencies = res;
+                },
+                function (err){
+                    $scope.error = true;
+                    $scope.errorMessage = "There was a problem retrieving the agencies. Please contact NashvilleHelps@gmail.com and try again later.";
+                })
+        }
+
+        $scope.showAddAgencyInputs = function(){
+            $scope.newAgency = {};
+            $scope.addAgencyInputs = true;
+        }
+
+        $scope.addAgency = function(){
+            agencyService.addAgency($scope.newAgency)
+                .then(
+                    function(res){
+                        getAgencies();
+                        $scope.showAddAgencyInputs = false;
+                        $scope.newAgency = {};
+                    },
+                    function(err){
+                        $scope.error = true;
+                        $scope.errorMessage = "There was a problem adding the new agency. Please contact NashvilleHelps@gmail.com and try again later.";
+                    })
+        }
+
+        function getUsers(){
             userService.getUsers()
                 .then(
                     function(res){
@@ -28,13 +60,31 @@
                 )
         }   
 
-        $scope.deleteUserConfirm = function (user){
+        $scope.editUserConfirm = function (user){
             $scope.editUser = user;
         } 
 
+        $scope.editUser = function(user){
+            userService.editUser(user)
+                .then(getUsers);
+        }
+
         $scope.deleteUser = function(user){
             userService.deleteUser(user.id)
-                .then($scope.getUsers);
+                .then(getUsers);
+        }
+
+        $scope.showAddUserInputs = function(){
+            $scope.addUserInputs = true;
+            $scope.newUser = {};
+        }
+
+        $scope.addUser = function(){
+            agencyUser.generateToken()
+                .then(function(res){
+                    $scope.showAddUserInputs = false;
+                    $scope.token = res.data;
+                });
         }
 
         function populateAgencies(){
@@ -52,7 +102,7 @@
         }
 
 
-        $scope.getServices = function(){
+        function getServices(){
             servicesService.getServices()
                 .then(
                     function(res){

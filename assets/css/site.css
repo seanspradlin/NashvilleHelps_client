@@ -28,6 +28,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Arvo"
 }
 
-.collection-item{
+.pointer{
  cursor: pointer;
+}
+
+.tabs .indicator {
+    background-color: #78909c;
 }
