@@ -87,7 +87,7 @@
 			<div class="col s12">
 				<ul class="collection">
 					<li class="collection-item" ng-repeat="user in users">
-						<h5>{{user.name.first}} {{user.name.last}} -- {{user.agencyInfo}}<a modal href="#user" ng-click="manageUser(user)" class="secondary-content"><i class="material-icons">edit</i></a></h5>
+						<h5>{{user.name.first}} {{user.name.last}} -- {{user.agencyInfo}}<a modal href="#deleteUser" ng-click="deleteUserConfirm(user)" class="secondary-content"><i class="material-icons">remove</i></a></h5>
 					</li>
 				</ul>
 			</div>
@@ -105,13 +105,13 @@
 			</div>
 		</div>
 		<!-- Modal Structure -->
-		<div id="deleteService" class="modal bottom-sheet">
+		<div id="deleteUser" class="modal bottom-sheet">
 			<div class="modal-content">
-				<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
-				<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
+				<h4>Are you sure you would like to delete {{confirmUser.name.first}} {{confirmUser.name.last}}?</h4>
+				<p class="center-align">This process cannot be reversed.</p>
 			</div>
 			<div class="modal-footer">
-				<a ng-click="deleteService(confirmService)" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+				<a ng-click="deleteUser(confirmUser)" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 			</div>
 		</div>

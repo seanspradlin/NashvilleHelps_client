@@ -26,7 +26,16 @@
                         $scope.errorMessage = "There was a problem retrieving the users. Please contact NashvilleHelps@gmail.com and try again later.";
                     }
                 )
-        }    
+        }   
+
+        $scope.deleteUserConfirm = function (user){
+            $scope.editUser = user;
+        } 
+
+        $scope.deleteUser = function(user){
+            userService.deleteUser(user.id)
+                .then($scope.getUsers);
+        }
 
         function populateAgencies(){
             return $scope.users.map(function(v, i, a){
