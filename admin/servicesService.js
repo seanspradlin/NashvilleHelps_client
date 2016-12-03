@@ -5,7 +5,7 @@
     servicesService.$inject = ['$http', 'api'];
 
     function servicesService($http, api){
-        var servicesApi = api.baseUrl + 'services';
+        var servicesApi = api.baseUrl + 'services/';
 
         function getServices() {
             return $http.get(servicesApi)

@@ -5,12 +5,17 @@
     agencyService.$inject = ['$http', 'api'];
 
     function agencyService($http, api){
-        var agencyApi = api.baseUrl + 'agencies';
+        var agencyApi = api.baseUrl + 'agencies/';
 
         function getAgencies(){
             return $http.get(agencyApi).then(function(res){
                 return res.data;
             })
+        }
+        function getAgency(id){
+            return $http.get(agencyApi + id).then(function(res){
+                return res.data;
+            });
         }
         function addServiceToAgency(){}
         function removeServiceFromAgency(){}
@@ -22,6 +27,7 @@
 
         return {
             getAgencies: getAgencies,
+            getAgency: getAgency,
             addServiceToAgency: addServiceToAgency,
             removeServiceFromAgency: removeServiceFromAgency,
             createRegistrationTokenForAgency: createRegistrationTokenForAgency,

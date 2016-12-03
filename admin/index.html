@@ -62,41 +62,59 @@
 			<div class="col s12">
 				<ul class="collection">
 					<li class="collection-item" ng-repeat="service in services">
-						<h5>{{service.name}} -- {{service.category}}<a modal href="#delete" ng-click="deleteConfirm(service)" class="secondary-content"><i class="material-icons">remove</i></a></h5>
+						<h5>{{service.name}} -- {{service.category}}<a modal href="#deleteService" ng-click="deleteServiceConfirm(service)" class="secondary-content"><i class="material-icons">remove</i></a></h5>
+					</li>
+					<li class="collection-item">
+						<a ng-click="showAddInputs()">+ Add Service</a>
+					</li>
+					<li class="collection-item" ng-show="addInputs">
+						<div class="input-field">
+							<input required ng-model="newService.name" type="text" class="validate">
+							<label for="name">Service Name</label>
+						</div>
+						<div class="input-field">
+							<input ng-model="newService.category" type="text" class="validate">
+							<label for="category">Service Category</label>
+						</div>
+						<button type="submit" id="submit" ng-click="addService(newService)" class="blue center-align waves-effect waves-light btn">Add Service</button>
 					</li>
 				</ul>
+			</div>
+		</div>
 
+		<h4>Users</h4>
+		<div class="row">
+			<div class="col s12">
+				<ul class="collection">
+					<li class="collection-item" ng-repeat="user in users">
+						<h5>{{user.name.first}} {{user.name.last}} -- {{user.agencyInfo}}<a modal href="#user" ng-click="manageUser(user)" class="secondary-content"><i class="material-icons">edit</i></a></h5>
+					</li>
+				</ul>
+			</div>
 			<br>
-			<br>
-			<ul class="collection with-header">
-				<li class="collection-header">
-					<a ng-click="showAddInputs()">+ Add Service</a>
-				</li>
-				<li class="collection-item" ng-show="addInputs">
-					<div class="input-field">
-						<input required ng-model="newService.name" type="text" class="validate">
-						<label for="name">Service Name</label>
-					</div>
-					<div class="input-field">
-						<input ng-model="newService.category" type="text" class="validate">
-						<label for="category">Service Category</label>
-					</div>
-					<button type="submit" id="submit" ng-click="addService(newService)" class="blue center-align waves-effect waves-light btn">Add Service</button>
-				</li>
-			</ul>
 		</div>
-	</div>
-	<!-- Modal Structure -->
-	<div id="delete" class="modal bottom-sheet">
-		<div class="modal-content">
-			<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
-			<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
+		<!-- Modal Structure -->
+		<div id="deleteService" class="modal bottom-sheet">
+			<div class="modal-content">
+				<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
+				<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
+			</div>
+			<div class="modal-footer">
+				<a ng-click="deleteService(confirmService)" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
 		</div>
-		<div class="modal-footer">
-			<a ng-click="delete(confirmService)" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		<!-- Modal Structure -->
+		<div id="deleteService" class="modal bottom-sheet">
+			<div class="modal-content">
+				<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
+				<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
+			</div>
+			<div class="modal-footer">
+				<a ng-click="deleteService(confirmService)" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
 		</div>
-	</div>
 	</div>
 
 	<script src="./../node_modules/jquery/dist/jquery.js"></script>
@@ -108,6 +126,8 @@
 	<script src="./../client/clientService.js"></script>
 	<script src="admin.js"></script>
 	<script src="servicesService.js"></script>
+	<script src="userService.js"></script>
+	<script src="agencyService.js"></script>
 	<script src="adminController.js"></script>
 </body>
 
