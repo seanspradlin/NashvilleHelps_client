@@ -11,18 +11,7 @@
 </head>
 
 <body ng-app="nashhelps.admin" ng-controller="adminController">
-	<nav class="blue-grey darken-4">
-		<div class="nav-wrapper container">
-			<a href="/" class="brand-logo">Nashville Helps</a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="/logout">Log Out</a></li>
-				<li><a href="/dashboard">Dashboard</a></li>
-				<li><a href="/admin">Admin</a></li>
-			</ul>
-		</div>
-	</nav>
-	<br>
-	<br>
+	<div ng-include="'./../nav.html'"></div>
 	<div class="container">
 
 		<div ng-show="success">
