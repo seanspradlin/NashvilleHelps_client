@@ -1,3 +1,3 @@
 (function(){
-    angular.module('nashhelps.account', ['nashhelps']);
+    angular.module('nashhelps.account', ['nashhelps', 'nashhelps.admin']);
 })();

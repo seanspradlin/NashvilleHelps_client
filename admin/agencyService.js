@@ -12,13 +12,38 @@
                 return res.data;
             })
         }
+
         function getAgency(id){
             return $http.get(agencyApi + id).then(function(res){
                 return res.data;
             });
         }
-        function addServiceToAgency(){}
-        function removeServiceFromAgency(){}
+
+        function getServicesForAgency(agencyId){
+            return $http.get(agencyApi + agencyId + "/services")
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function addServiceToAgency(serviceId, agencyId){
+            var data = {
+                agency_id: agencyId,
+                service_id: serviceId
+            };
+            return $http.post(agencyApi + agencyId + "/services", data)
+                .then(function(res){
+                    return res;
+                });
+        }
+
+        function removeServiceFromAgency(serviceId, agencyId){
+            return $http.delete(agencyApi + agencyId + "/services/" + serviceId)
+                .then(function(res){
+                    return res;
+                });
+        }
+
         function createRegistrationTokenForAgency(){}
         
         function addAgency(agency){
@@ -29,7 +54,12 @@
         }
         
         function deleteAgency(){}
-        function updateAgency(){}
+        function updateAgency(agency){
+            return $http.put(agencyApi + agency.agency_id, agency)
+                .then(function(res){ 
+                    return res; 
+                });
+        }
 
 
         return {
@@ -40,7 +70,8 @@
             createRegistrationTokenForAgency: createRegistrationTokenForAgency,
             addAgency: addAgency,
             deleteAgency: deleteAgency,
-            updateAgency: updateAgency
+            updateAgency: updateAgency,
+            getServicesForAgency: getServicesForAgency
         }
         
     }

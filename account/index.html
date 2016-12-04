@@ -28,7 +28,6 @@
 		<div ng-show="success">
 			<br>
 			<br>
-
 			<div class="row">
 				<div class="col s8 offset-s2">
 					<div class="card green lighten-4">
@@ -38,7 +37,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<div ng-show="error">
 			<div class="row">
@@ -52,17 +50,25 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
+
+		<h4>My Account</h4>
 		<div class="row">
-			<h3 class="center-align">My Account</h3>
-			<div class="col s6">
+			<div class="col s12">
+				<ul class="tabs blue-grey lighten-5">
+					<li class="tab col s4"><a href="#profile" class="blue-grey-text">My Profile</a></li>
+					<li class="tab col s4"><a href="#password" class="blue-grey-text">Change My Password</a></li>
+					<li class="tab col s4"><a href="#agency" class="blue-grey-text">My Agency</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row" id="password">
+			<div class="col s12">
 				<div class="card">
 					<div class="card-content">
-						<h4>Change Password</h4>
-						<br>
-							<div class="input-field">
-						<input type="password" ng-model="password">
+						<div class="input-field">
+							<input type="password" ng-model="password">
 								<label for="password">Password</label>
 							</div>
 							<div class="input-field">
@@ -76,11 +82,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="col s6">
+		</div>
+
+		<div class="row" id="profile">
+			<div class="col s12">
 				<div class="card">
 					<div class="card-content">
-						<h4>My Profile</h4>
-						<br>
 						<div class="row">
 							<div class="input-field">
 								<input type="text" name="firstName" ng-model="profile.first_name" class="validate">
@@ -107,10 +114,89 @@
 						</div>
 						<br>
 						<div class="row center-align">
-							<button ng-click="saveProfile(profile)" class="blue waves-effect waves-light btn">Save Profile</button>
+							<button ng-click="saveProfile(profile)" class="waves-effect waves-light btn-flat">Save Profile</button>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div class="row" id="agency">
+			<div class="col s6">
+				<div class="card">
+					<div class="card-content">
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" id="agencyName" ng-model="agency.name" class="validate">
+								<label for="agencyName">Agency Name</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" id="streetAddress" ng-model="agency.street1" class="validate">
+								<label for="streetAddress">Street Address</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" id="streetAddress2" ng-model="agency.street2" class="validate">
+								<label for="streetAddress2">Street Address 2</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s5">
+								<input type="text" id="city" ng-model="agency.city" class="validate">
+								<label for="city">City</label>
+							</div>
+							<div class="input-field col s3">
+								<input type="text" id="state" ng-model="agency.state" class="validate">
+								<label for="streetAddress">State</label>
+							</div>
+							<div class="input-field col s4">
+								<input type="text" id="zipCode" ng-model="agency.postal" class="validate">
+								<label for="zipCode">Zip Code</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" id="phoneNumber" ng-model="agency.phone" class="validate">
+								<label for="phoneNumber">Phone Number</label>
+							</div>
+						</div>
+						<div class="row center-align">
+							<button ng-click="saveAgency(agency)" class="waves-effect waves-light btn-flat">Save Agency</button>						
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s6">
+				<ul class="collection with-header">
+					<li class="collection-header">
+						<h6>Services Offered by My Agency</h6>
+					</li>
+					<li class="collection-item" ng-repeat="service in agency.services">
+						service.name
+						<a href ng-click="deleteService(service._id)" class="secondary-content"><i class="material-icons">delete</i></a>
+					</li>
+					<li class="collection-item">
+						<a href ng-click="showAddAgencyInputs()">+ Add Service</a>
+					</li>
+					<li class="collection-item" ng-show="addAgencyInputs">
+						<div class="row">
+							<label>Select Service</label>
+							<div class="input-field col s12">
+								<select id="service" ng-model="selectedService" class="browser-default">
+									<option ng-repeat="service in services" value="{{service._id}}">{{service.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<button ng-click="addServiceToAgency(selectedService)" class="waves-effect waves-light btn blue-grey">Add Service</button>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -119,6 +205,10 @@
 	<script src="./../node_modules/angular/angular.js"></script>
 	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
 	<script src="./../app.js"></script>
+	<script src="./../client/client.js"></script>
+	<script src="./../admin/admin.js"></script>
+	<script src="./../admin/agencyService.js"></script>
+	<script src="./../admin/servicesService.js"></script>
 	<script src="account.js"></script>
 	<script src="accountService.js"></script>
 	<script src="accountController.js"></script>
