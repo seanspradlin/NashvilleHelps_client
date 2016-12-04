@@ -1,3 +1,3 @@
 (function(){
-    angular.module('nashhelps.dashboard', ['nashhelps.client']);
+    angular.module('nashhelps.dashboard', ['nashhelps.client', 'nashhelps.account']);
 })();
