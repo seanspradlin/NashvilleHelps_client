@@ -10,7 +10,7 @@
             <li ng-show="isAuthenticated"><a href="/dashboard">Dashboard</a></li>
             <li ng-show="isAuthenticated && isAdmin"><a href="/admin">Admin</a></li>
             <li ng-show="isAuthenticated && isAdmin"><a href="/admin/report.html">Reports</a></li>
-            <li ng-show="isAuthenticated"><a href="/logout">Log Out</a></li>
+            <li ng-show="isAuthenticated"><a href ng-click="logout()">Log Out</a></li>
         </ul>
         <ul id="mobile-demo" class="side-nav">
             <li ng-hide="isAuthenticated"><a href="/account/login.html">Login</a></li>
@@ -18,7 +18,7 @@
             <li ng-show="isAuthenticated"><a href="/dashboard">Dashboard</a></li>
             <li ng-show="isAuthenticated && isAdmin"><a href="/admin">Admin</a></li>
             <li ng-show="isAuthenticated && isAdmin"><a href="/admin/report.html">Reports</a></li>
-            <li ng-show="isAuthenticated"><a href="/logout">Log Out</a></li>
+            <li ng-show="isAuthenticated"><a href ng-click="logout()">Log Out</a></li>
         </ul>
     </div>
 </nav>

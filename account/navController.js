@@ -8,6 +8,11 @@
         $scope.isAuthenticated = false;
         $scope.isAdmin = false;
 
+        $scope.logout = function(){
+            accountService.logout()
+                .then(getAccount);
+        }
+
         function init(){
             getAccount();
         }

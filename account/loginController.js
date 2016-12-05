@@ -5,7 +5,7 @@
     loginController.$inject = ['$scope', '$window', 'accountService'];
 
     function loginController($scope, $window, accountService){
-               
+ 
         $scope.submit = function(form){
             accountService.login(form)
                 .then(
