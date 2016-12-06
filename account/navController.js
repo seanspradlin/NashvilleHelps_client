@@ -1,5 +1,5 @@
 (function(){
-    angular.module('nashhelps.account')
+    angular.module('nashhelps')
         .controller('navController', navController);
     
     navController.$inject = ['$scope', 'accountService'];

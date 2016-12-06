@@ -2,7 +2,7 @@
     angular.module('nashhelps')
         .factory('reportService', reportService);
     
-    reportService.$inject = [clientService, agencyService, servicesService];
+    reportService.$inject = ['clientService', 'agencyService', 'servicesService'];
 
     function reportService(clientService, agencyService, servicesService){
         function init(){

@@ -1,5 +1,5 @@
 (function(){
-    angular.module('nashhelps.admin')
+    angular.module('nashhelps')
         .factory('agencyService', agencyService);
     
     agencyService.$inject = ['$http', 'api'];

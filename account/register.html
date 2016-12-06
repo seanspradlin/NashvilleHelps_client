@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body ng-app="nashhelps.account" ng-controller="loginController">
+<body ng-app="nashhelps" ng-controller="loginController">
 	<div ng-include="'./../nav.html'"></div>
 	<div class="container">
 		<div ng-show="error">
@@ -78,9 +78,13 @@
 	<script src="./../node_modules/angular/angular.js"></script>
 	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
 	<script src="./../app.js"></script>
-	<script src="account.js"></script>
-	<script src="accountService.js"></script>
-	<script src="navController.js"></script>
+	<script src="./../services/accountService.js"></script>
+	<script src="./../services/agencyService.js"></script>
+	<script src="./../services/clientService.js"></script>
+	<script src="./../services/reportService.js"></script>
+	<script src="./../services/servicesService.js"></script>
+	<script src="./../services/userService.js"></script>
+	<script src="./../account/navController.js"></script>
 	<script src="loginController.js"></script>
 </body>
 

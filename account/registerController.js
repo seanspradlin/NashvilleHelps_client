@@ -1,5 +1,5 @@
 (function(){
-    angular.module('nashhelps.account')
+    angular.module('nashhelps')
         .controller('registerController', registerController);
     
     registerController.$inject = ['$scope', '$window', 'accountService'];

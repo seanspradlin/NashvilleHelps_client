@@ -1,5 +1,5 @@
 (function(){
-    angular.module('nashhelps.account').factory('accountService', ['$http', '$q', 'api', function($http, $q, api){
+    angular.module('nashhelps').factory('accountService', ['$http', '$q', 'api', function($http, $q, api){
         var accountApiUrl = api.baseUrl + 'account/'
         
         var currentAccount;

@@ -1,5 +1,5 @@
 (function(){
-    angular.module('nashhelps.dashboard')
+    angular.module('nashhelps')
         .controller('dashboardController', dashboardController);
     
     dashboardController.$inject = ['$scope', 'clientService'];
