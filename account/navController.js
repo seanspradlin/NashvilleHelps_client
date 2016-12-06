@@ -22,7 +22,7 @@
                 .then(
                     function(res){
                         $scope.isAuthenticated = true;
-                        $scope.isAdmin = res.data.is_admin;
+                        $scope.isAdmin = res.is_admin;
                     }, 
                     function(err){ 
                         $scope.isAuthenticated = false; 

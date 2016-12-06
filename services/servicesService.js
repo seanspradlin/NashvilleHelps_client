@@ -10,14 +10,14 @@
         function getServices() {
             return $http.get(servicesApi)
                 .then(function(res){
-                    return res;
+                    return res.data;
                 });
         }
 
         function getCategories() {
             return getServices()
                 .then(function(res){
-                    var data = res.data;
+                    var data = res;
                     data = data.map(function(value, index, array){
                         return value.category;
                     });
@@ -32,7 +32,7 @@
             return $http.post(servicesApi, service)
                 .then(
                     function(res){
-                        return res;
+                        return res.data;
                     }
                 )
         }
@@ -41,7 +41,7 @@
             return $http.delete(servicesApi + serviceId)
                 .then(
                     function(res){
-                        return res;
+                        return res.data;
                     }
                 )
         }

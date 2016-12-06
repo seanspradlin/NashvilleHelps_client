@@ -33,14 +33,14 @@
             };
             return $http.post(agencyApi + agencyId + "/services", data)
                 .then(function(res){
-                    return res;
+                    return res.data;
                 });
         }
 
         function removeServiceFromAgency(serviceId, agencyId){
             return $http.delete(agencyApi + agencyId + "/services/" + serviceId)
                 .then(function(res){
-                    return res;
+                    return res.data;
                 });
         }
 
@@ -49,7 +49,7 @@
         function addAgency(agency){
             return $http.post(agencyApi, agency)
                 .then(function(res){
-                    return res;
+                    return res.data;
                 })
         }
         

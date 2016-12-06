@@ -10,14 +10,14 @@
         function getUsers (){
             return $http.get(userApi)
                 .then(function(res){
-                    return res;
+                    return res.data;
                 });                
         }
 
         function deleteUser(userId){
             return $http.delete(userApi + userId)
                 .then(function(res){
-                    return res;
+                    return res.data;
                 });
         }
 

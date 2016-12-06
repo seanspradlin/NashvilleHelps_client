@@ -10,7 +10,7 @@
         function addClient(client){
             return $http.post(clientApi, client).then(
                 function(res){
-                    return res;
+                    return res.data;
                 }
             )
         }
@@ -38,7 +38,7 @@
            return $http.post(clientApi + "/" + referral.client_id + '/service/' + referral.service_id)
                 .then(
                     function(res){
-                    return res;
+                    return res.data;
                 });
         }
         

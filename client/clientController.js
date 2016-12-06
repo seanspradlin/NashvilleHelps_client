@@ -45,7 +45,7 @@
                 servicesService.getServices()
                     .then(
                         function(res){
-                            $scope.services = res.data;
+                            $scope.services = res;
                             $scope.getCategories();
                         },
                         function(err){

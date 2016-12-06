@@ -18,14 +18,14 @@
         function getServices(){
             servicesService.getServices()
                 .then(function(res){
-                    $scope.services = res.data;
+                    $scope.services = res;
                 })
         }
 
         function getAgencyServices(id){
             agencyService.getServicesForAgency(id)
                 .then(function(res){
-                    $scope.agencyServices = res.data;
+                    $scope.agencyServices = res;
                 })
         }
 
@@ -50,18 +50,18 @@
             accountService.getAccount()
                 .then(
                     function(res){
-                        $scope.profile.first_name = res.data.name.first;
-                        $scope.profile.last_name = res.data.name.last;
-                        $scope.profile.email = res.data.email;
-                        $scope.profile.phone = res.data.phone;
-                        $scope.agency.name = res.data.agency.name;
-                        $scope.agency.street1 = res.data.agency.address.street1;
-                        $scope.agency.street2 = res.data.agency.address.street2;
-                        $scope.agency.city = res.data.agency.address.city;
-                        $scope.agency.state = res.data.agency.address.state;
-                        $scope.agency.postal = res.data.agency.address.postal;
-                        $scope.agency.phone = res.data.agency.phone;
-                        $scope.agency.agency_id = res.data.agency._id;                        
+                        $scope.profile.first_name = res.name.first;
+                        $scope.profile.last_name = res.name.last;
+                        $scope.profile.email = res.email;
+                        $scope.profile.phone = res.phone;
+                        $scope.agency.name = res.agency.name;
+                        $scope.agency.street1 = res.agency.address.street1;
+                        $scope.agency.street2 = res.agency.address.street2;
+                        $scope.agency.city = res.agency.address.city;
+                        $scope.agency.state = res.agency.address.state;
+                        $scope.agency.postal = res.agency.address.postal;
+                        $scope.agency.phone = res.agency.phone;
+                        $scope.agency.agency_id = res.agency._id;                        
                     },
                     function(err){
                         $scope.error = true;

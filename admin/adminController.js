@@ -50,7 +50,7 @@
             userService.getUsers()
                 .then(
                     function(res){
-                        $scope.users = res.data;
+                        $scope.users = res;
                         populateAgencies();
                     },
                     function(err){
@@ -83,7 +83,7 @@
             agencyUser.generateToken()
                 .then(function(res){
                     $scope.showAddUserInputs = false;
-                    $scope.token = res.data;
+                    $scope.token = res;
                 });
         }
 
@@ -106,7 +106,7 @@
             servicesService.getServices()
                 .then(
                     function(res){
-                        $scope.services = res.data;
+                        $scope.services = res;
                         $scope.getCategories();
                     },
                     function(err){
