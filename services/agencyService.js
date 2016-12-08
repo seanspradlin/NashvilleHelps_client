@@ -19,13 +19,6 @@
             });
         }
 
-        function getServicesForAgency(agencyId){
-            return $http.get(agencyApi + agencyId + "/services")
-                .then(function(res){
-                    return res.data;
-                });
-        }
-
         function addServiceToAgency(serviceId, agencyId){
             var data = {
                 agency_id: agencyId,
@@ -70,8 +63,7 @@
             createRegistrationTokenForAgency: createRegistrationTokenForAgency,
             addAgency: addAgency,
             deleteAgency: deleteAgency,
-            updateAgency: updateAgency,
-            getServicesForAgency: getServicesForAgency
+            updateAgency: updateAgency
         }
         
     }

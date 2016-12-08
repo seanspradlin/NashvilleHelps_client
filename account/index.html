@@ -164,8 +164,8 @@
 						<h6>Services Offered by My Agency</h6>
 					</li>
 					<li class="collection-item" ng-repeat="service in agency.services">
-						service.name
-						<a href ng-click="deleteService(service._id)" class="secondary-content"><i class="material-icons">delete</i></a>
+						{{service.name}}
+						<a href ng-click="removeServiceFromAgency(service._id)" class="secondary-content"><i class="material-icons">delete</i></a>
 					</li>
 					<li class="collection-item">
 						<a href ng-click="showAddAgencyInputs()">+ Add Service</a>

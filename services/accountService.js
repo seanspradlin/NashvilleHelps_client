@@ -26,7 +26,7 @@
         }
 
         var changePassword = function(creds){
-            return $http.post(accountApiUrl + 'password', creds)
+            return $http.post(accountApiUrl + 'password', {'password': creds})
             .then(function(res){
                 return res.data;
             });

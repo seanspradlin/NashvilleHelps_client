@@ -22,23 +22,41 @@
                 })
         }
 
-        function getAgencyServices(id){
-            agencyService.getServicesForAgency(id)
-                .then(function(res){
-                    $scope.agencyServices = res;
-                })
+        function getAgency(id){
+            agencyService.getAgency(id)
+                .then(
+                    function(res){
+                        $scope.agency.name = res.name;
+                        $scope.agency.street1 = res.address.street1;
+                        $scope.agency.street2 = res.address.street2;
+                        $scope.agency.city = res.address.city;
+                        $scope.agency.state = res.address.state;
+                        $scope.agency.postal = res.address.postal;
+                        $scope.agency.phone = res.phone;
+                        $scope.agency.agency_id = res._id;
+                        populateServices(res.services);
+                });
+        }
+
+        function populateServices(agencyServices){
+            $scope.agency.services = [];
+            agencyServices.forEach(function(serviceId){
+                servicesService.getService(serviceId)
+                    .then(function(res){
+                        $scope.agency.services.push(res);
+                    })
+            })
         }
 
         $scope.addServiceToAgency = function(serviceId){
-            console.log(serviceId);
             agencyService.addServiceToAgency(serviceId, $scope.agency.agency_id)
                 .then(function(res){
                     getAccount();
+                    $scope.addAgencyInputs = false;                    
                 });
         }
 
         $scope.removeServiceFromAgency = function(serviceId){
-            console.log(serviceId);
             agencyService.removeServiceFromAgency(serviceId, $scope.agency.agency_id)
                 .then(function(res){
                     getAccount();
@@ -54,14 +72,7 @@
                         $scope.profile.last_name = res.name.last;
                         $scope.profile.email = res.email;
                         $scope.profile.phone = res.phone;
-                        $scope.agency.name = res.agency.name;
-                        $scope.agency.street1 = res.agency.address.street1;
-                        $scope.agency.street2 = res.agency.address.street2;
-                        $scope.agency.city = res.agency.address.city;
-                        $scope.agency.state = res.agency.address.state;
-                        $scope.agency.postal = res.agency.address.postal;
-                        $scope.agency.phone = res.agency.phone;
-                        $scope.agency.agency_id = res.agency._id;                        
+                        getAgency(res.agency._id);                       
                     },
                     function(err){
                         $scope.error = true;

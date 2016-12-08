@@ -14,6 +14,13 @@
                 });
         }
 
+        function getService(id) {
+            return $http.get(servicesApi + id)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
         function getCategories() {
             return getServices()
                 .then(function(res){
@@ -48,6 +55,7 @@
 
         return {
             getServices: getServices,
+            getService: getService,
             getCategories: getCategories,
             addService: addService,
             deleteService: deleteService
