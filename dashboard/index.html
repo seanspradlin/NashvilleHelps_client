@@ -73,7 +73,7 @@
 					<h6>Services Requested:</h6>
 					<div>
 						<br>
-						<a modal href="#complete" ng-click="confirmComplete(client._id, referral.service)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }" class="lighten-1 chip"><span class="white-text">{{referral.service_name}}</span></a>
+						<a modal href="#complete" ng-click="confirmComplete(client._id, referral)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }" class="lighten-1 chip"><span class="white-text">{{referral.service_name}}</span></a>
 					</div>
 				</div>
 			</div>
@@ -81,9 +81,12 @@
 		<!-- Modal Structure -->
 	<div id="complete" class="modal bottom-sheet">
 		<div class="modal-content">
-			<h4>Do you have any notes to leave as you complete this service?</h4>
-			<textarea class="materialize-textarea"></textarea>
-          <label for="notes" ng-model="completeReferral.notes">Notes</label>
+			<h5>Notes about this referral:</h5>
+			<textarea class="materialize-textarea" ng-model="completeReferral.notes"></textarea>
+		  <br>
+		  <input type="checkbox" id="is_complete" ng-model="completeReferral.is_complete">
+		  <label for="is_complete">This service is going to be provided.</label>
+
 		</div>
 		<div class="modal-footer">
 			<a ng-click="markComplete(completeReferral)" class=" modal-action modal-close waves-effect waves-green btn-flat">Complete</a>

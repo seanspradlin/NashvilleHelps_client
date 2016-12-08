@@ -26,14 +26,18 @@
                 );
         }
 
-        $scope.confirmComplete = function(clientId, referralId){
+        //FIND OUT IF COMPLETE
+
+        $scope.confirmComplete = function(clientId, referral){
+            console.log(referral);
             $scope.completeReferral.client_id = clientId;
-            $scope.completeReferral.service_id = referralId;
-            $scope.completeReferral.notes = '';
+            $scope.completeReferral.service_id = referral.service;
+            $scope.completeReferral.notes = referral.notes;
+            $scope.completeReferral.is_complete = referral.is_complete;
         }
 
-        $scope.markComplete = function(referral){
-            clientService.completeReferral(referral)
+        $scope.markComplete = function(){
+            clientService.completeReferral($scope.completeReferral)
                 .then(  
                     function(res){
                         $scope.success = true;
