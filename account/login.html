@@ -1,67 +1,24 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Nashville Helps</title>
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
-	/>
-	<link rel="stylesheet" href="./../assets/css/site.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-
-<body ng-app="nashhelps"ng-controller="loginController">
-	<div ng-include="'./../nav.html'"></div>
-	<div class="container">
-		<div ng-show="error">
-			<div class="row">
-				<div class="col s8 offset-s2">
-					<div class="card red lighten-5">
-						<div class="card-content">
-							<p>{{errorMessage}}</p>
-							<br>
-							<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-						</div>
-					</div>
-				</div>
+<div ng-include="'./../shared/nav.html'"></div>
+<div class="container">
+	<h4>Log In to See Your Dashboard</h4>
+	<form id="loginForm">
+		<div class="row">
+			<div class="input-field col s6 offset-s3">
+				<input ng-model="loginForm.email" id="email" type="email" name="email" class="validate">
+				<label for="email">Email Address</label>
 			</div>
-
 		</div>
-			<h4>Log In to See Your Dashboard</h4>
-			<form id="loginForm">
-				<div class="row">
-					<div class="input-field col s6 offset-s3">
-						<input ng-model="loginForm.email" id="email" type="email" name="email" class="validate">
-						<label for="email">Email Address</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s6 offset-s3">
-						<input id="password" ng-model="loginForm.password" type="password" name="password" class="validate">
-						<label for="password">Password</label>
-					</div>
-				</div>
-				<div class="row center-align">
-					<button ng-click="submit(loginForm)" class="blue center-align waves-effect waves-light btn">Log In</button>
-					<br>					
-					<br>
-					<a href="./register.html">Or click here to Register</a>
-				</div>
-			</form>
+		<div class="row">
+			<div class="input-field col s6 offset-s3">
+				<input id="password" ng-model="loginForm.password" type="password" name="password" class="validate">
+				<label for="password">Password</label>
+			</div>
 		</div>
-	<script src="./../node_modules/jquery/dist/jquery.js"></script>
-	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>
-	<script src="./../node_modules/angular/angular.js"></script>
-	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
-	<script src="./../app.js"></script>
-	<script src="./../services/accountService.js"></script>
-	<script src="./../services/agencyService.js"></script>
-	<script src="./../services/clientService.js"></script>
-	<script src="./../services/reportService.js"></script>
-	<script src="./../services/servicesService.js"></script>
-	<script src="./../services/userService.js"></script>
-	<script src="./../account/navController.js"></script>
-	<script src="loginController.js"></script>
-</body>
-
-</html>
+		<div class="row center-align">
+			<button ng-click="submit(loginForm)" class="blue center-align waves-effect waves-light btn">Log In</button>
+			<br>
+			<br>
+			<a href="./register.html">Or click here to Register</a>
+		</div>
+	</form>
+</div>

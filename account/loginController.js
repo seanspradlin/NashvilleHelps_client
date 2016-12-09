@@ -2,16 +2,16 @@
     angular.module('nashhelps')
         .controller('loginController', loginController);
     
-    loginController.$inject = ['$scope', '$window', 'accountService'];
+    loginController.$inject = ['$scope', '$location', 'accountService'];
 
-    function loginController($scope, $window, accountService){
+    function loginController($scope, $location, accountService){
  
         $scope.submit = function(form){
             accountService.login(form)
                 .then(
                     function(res){
                         console.log(res);
-                        $window.location.href = "/account";
+                        $location.path("/account");
                     },
                     function(err){
                         $scope.error = true;

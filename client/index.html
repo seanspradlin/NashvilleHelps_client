@@ -1,54 +1,9 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Nashville Helps</title>
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
-	/>
-	<link rel="stylesheet" href="./../assets/css/site.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-
-<body ng-app="nashhelps" ng-controller="clientController" ng-cloak>
-
 	<div class="row">
 		<div class="col s3">
 			<br>
 			<a href="/" class="grey lighten-3 grey-text text-darken-4 btn">Back</a></div>
 	</div>
-	<div ng-show="success">
-		<br>
-		<br>
-
-		<div class="row">
-			<div class="col s8 offset-s2">
-				<div class="card green lighten-4">
-				<div class="card-content">
-					<h4><span class="card-title">Success!</span></h4>
-					<p>Thanks for submitting your information! Someone will contact you from one of our partner organizations soon with details on how they can help.</p>
-					<br>
-					<p>To request more information about Nashville Helps, please contact NashvilleHelps@gmail.com, or Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-				</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<div ng-show="error">
-		<div class="row">
-			<div class="col s8 offset-s2">
-				<div class="card red lighten-4">
-				<div class="card-content">
-					<h4><span class="card-title">Error:</span></h4>
-					<p>{{errorMessage}}</p>
-					<br>
-					<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-				</div></div>
-			</div>
-		</div>
-
-	</div>
+	
 	<div ng-hide="success">
 		<form id="clientForm" class="col s12">
 			<div class="section">
@@ -168,20 +123,3 @@
 		</form>
 
 	</div>
-
-	<script src="./../node_modules/jquery/dist/jquery.js"></script>
-	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>	
-	<script src="./../node_modules/angular/angular.js"></script>
-	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
-	<script src="./../app.js"></script>
-	<script src="./../services/accountService.js"></script>
-	<script src="./../services/agencyService.js"></script>
-	<script src="./../services/clientService.js"></script>
-	<script src="./../services/reportService.js"></script>
-	<script src="./../services/servicesService.js"></script>
-	<script src="./../services/userService.js"></script>
-	<script src="./../account/navController.js"></script>
-	<script src="clientController.js"></script>
-</body>
-
-</html>

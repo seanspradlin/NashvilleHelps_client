@@ -1,91 +1,50 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Nashville Helps</title>
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
-	/>
-	<link rel="stylesheet" href="./../assets/css/site.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-
-<body ng-app="nashhelps" ng-controller="dashboardController">
-	<div ng-include="'./../nav.html'"></div>
-	<div class="container">
-
-		<div ng-show="success">
-			<br>
-			<br>
-
-			<div class="row">
-				<div class="col s8 offset-s2">
-					<div class="card green lighten-4">
-						<div class="card-content">
-							<p>Your changes have been saved succesfully.</p>
-						</div>
-					</div>
-				</div>
+<div ng-include="'./../shared/nav.html'"></div>
+<div class="container">
+	<h4>Dashboard</h4>
+	<div class="row">
+		<div class="col s4">
+			<div class="collection">
+				<a href="#!" class="collection-item black-text">Active<span class="badge"></span></a>
+				<a href="#!" class="collection-item black-text">Completed<span class="badge"></span></a>
+				<a href="#!" class="collection-item black-text">Completed by My Agency<span class="badge"></span></a>
 			</div>
-
-		</div>
-		<div ng-show="error">
-			<div class="row">
-				<div class="col s8 offset-s2">
-					<div class="card red lighten-5">
-						<div class="card-content">
-							<p>{{errorMessage}}</p>
-							<br>
-							<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<h4>Dashboard</h4>
-		<div class="row">
-			<div class="col s4">
-				<div class="collection">
-					<a href="#!" class="collection-item black-text">Active<span class="badge"></span></a>
-					<a href="#!" class="collection-item black-text">Completed<span class="badge"></span></a>
-					<a href="#!" class="collection-item black-text">Completed by My Agency<span class="badge"></span></a>
-				</div>
-				<div class="card grey lighten-4">
-					<div class="card-content">
-						<p>Labels:</p>
-						<br>
-						<div class="blue-grey lighten-1 chip"><span class="white-text">Service Still Needed</span></div>
-						<div class="orange lighten-1 chip"><span class="white-text">Service Fulfilled</span></div></p>
-					</div>
-				</div>
-			</div>
-			<div class="col s8">
-				
-				<div class="card-panel" ng-repeat="client in clients">
-					<h5>{{client.name.first}} {{client.name.last}}</h5>
-					<p>Phone Number: {{client.phone}}</p>
-					<p>Address:</p>
-					<p>{{client.address.street1}}</p>
-					<p ng-if="client.address.street2">{{client.address.street2}}</p>
-					<p>{{client.address.city}} {{client.address.state}} {{client.address.postal}}</p>
-					<p>Email Address: {{client.email}}</p>
-					<h6>Services Requested:</h6>
-					<div>
-						<br>
-						<a modal href="#complete" ng-click="confirmComplete(client._id, referral)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }" class="lighten-1 chip"><span class="white-text">{{referral.service_name}}</span></a>
-					</div>
+			<div class="card grey lighten-4">
+				<div class="card-content">
+					<p>Labels:</p>
+					<br>
+					<div class="blue-grey lighten-1 chip"><span class="white-text">Service Still Needed</span></div>
+					<div class="orange lighten-1 chip"><span class="white-text">Service Fulfilled</span></div>
+					</p>
 				</div>
 			</div>
 		</div>
-		<!-- Modal Structure -->
+		<div class="col s8">
+
+			<div class="card-panel" ng-repeat="client in clients">
+				<h5>{{client.name.first}} {{client.name.last}}</h5>
+				<p>Phone Number: {{client.phone}}</p>
+				<p>Address:</p>
+				<p>{{client.address.street1}}</p>
+				<p ng-if="client.address.street2">{{client.address.street2}}</p>
+				<p>{{client.address.city}} {{client.address.state}} {{client.address.postal}}</p>
+				<p>Email Address: {{client.email}}</p>
+				<h6>Services Requested:</h6>
+				<div>
+					<br>
+					<a modal href="#complete" ng-click="confirmComplete(client._id, referral)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }"
+						class="lighten-1 chip"><span class="white-text">{{referral.service_name}}</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Structure -->
 	<div id="complete" class="modal bottom-sheet">
 		<div class="modal-content">
 			<h5>Notes about this referral:</h5>
 			<textarea class="materialize-textarea" ng-model="completeReferral.notes"></textarea>
-		  <br>
-		  <input type="checkbox" id="is_complete" ng-model="completeReferral.is_complete">
-		  <label for="is_complete">This service is going to be provided.</label>
+			<br>
+			<input type="checkbox" id="is_complete" ng-model="completeReferral.is_complete">
+			<label for="is_complete">This service is going to be provided.</label>
 
 		</div>
 		<div class="modal-footer">
@@ -93,21 +52,4 @@
 			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 		</div>
 	</div>
-	</div>
-	
-	<script src="./../node_modules/jquery/dist/jquery.js"></script>
-	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>
-	<script src="./../node_modules/angular/angular.js"></script>
-	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
-	<script src="./../app.js"></script>
-	<script src="./../services/accountService.js"></script>
-	<script src="./../services/agencyService.js"></script>
-	<script src="./../services/clientService.js"></script>
-	<script src="./../services/reportService.js"></script>
-	<script src="./../services/servicesService.js"></script>
-	<script src="./../services/userService.js"></script>
-	<script src="./../account/navController.js"></script>
-	<script src="dashboardController.js"></script>
-</body>
-
-</html>
+</div>

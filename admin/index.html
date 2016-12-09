@@ -1,235 +1,176 @@
-<!DOCTYPE html>
-<html>
+<div ng-include="'./../shared/nav.html'"></div>
+<div class="container">
 
-<head>
-	<title>Nashville Helps</title>
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
-	/>
-	<link rel="stylesheet" href="./../assets/css/site.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-
-<body ng-app="nashhelps" ng-controller="adminController">
-	<div ng-include="'./../nav.html'"></div>
-	<div class="container">
-
-		<div ng-show="success">
-			<br>
-			<br>
-
-			<div class="row">
-				<div class="col s8 offset-s2">
-					<div class="card green lighten-4">
-						<div class="card-content">
-							<p>Your changes have been saved succesfully.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
+	<h4>Administration</h4>
+	<div class="row">
+		<div class="col s12">
+			<ul class="tabs blue-grey lighten-5">
+				<li class="tab col s4"><a href="#services" class="blue-grey-text">Services</a></li>
+				<li class="tab col s4"><a href="#agencies" class="blue-grey-text">Agencies</a></li>
+				<li class="tab col s4"><a href="#users" class="blue-grey-text">Users</a></li>
+			</ul>
 		</div>
-		<div ng-show="error">
-			<div class="row">
-				<div class="col s8 offset-s2">
-					<div class="card red lighten-5">
-						<div class="card-content">
-							<p>{{errorMessage}}</p>
-							<br>
-							<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<h4>Administration</h4>
-		<div class="row">
-			<div class="col s12">
-				<ul class="tabs blue-grey lighten-5">
-					<li class="tab col s4"><a href="#services" class="blue-grey-text">Services</a></li>
-					<li class="tab col s4"><a href="#agencies" class="blue-grey-text">Agencies</a></li>
-					<li class="tab col s4"><a href="#users" class="blue-grey-text">Users</a></li>
-				</ul>
-			</div>
-		</div>
-
-		
-		<div class="row" id="services">
-			<div class="col s12">
-				<ul class="collection">
-					<li class="collection-item" ng-repeat="service in services">
-						{{service.name}} <small>{{service.category}}</small><a modal href="#deleteService" ng-click="deleteServiceConfirm(service)" class="secondary-content"><i class="material-icons">delete</i></a>
-					</li>
-					<li class="collection-item">
-						<a href="" ng-click="showAddInputs()">+ Add Service</a>
-					</li>
-					<li class="collection-item" ng-show="addInputs">
-						<div class="input-field">
-							<input required ng-model="newService.name" type="text" class="validate">
-							<label for="name">Service Name</label>
-						</div>
-						<div class="input-field">
-							<input ng-model="newService.category" type="text" class="validate">
-							<label for="category">Service Category</label>
-						</div>
-						<button type="submit" id="submit" ng-click="addService(newService)" class="blue center-align waves-effect waves-light btn">Add Service</button>
-					</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="row" id="users">
-			<div class="col s12">
-				<ul class="collection">
-					<li class="collection-item" ng-repeat="user in users">
-						{{user.name.first}} {{user.name.last}} <small>{{user.agencyInfo}}</small>
-							<a modal href="#deleteUser" ng-click="editUserConfirm(user)" class="secondary-content"><i class="material-icons">delete</i></a>
-							<a modal href="#editUser" ng-click="editUserConfirm(user)" class="secondary-content"><i class="material-icons">edit</i></a>
-					</li>
-					<li class="collection-item">
-						<a href ng-click="showAddUserInputs()">+ Add User</a>
-					</li>
-					<li class="collection-item" ng-show="addUserInputs">
-						<div class="input-field">
-							<input required ng-model="newUser.agency" type="text" class="validate">
-							<label for="agency">Agency</label>
-						</div>
-						<div class="input-field">
-							<input ng-model="newUser.email" type="text" class="validate">
-							<label for="email">User Email</label>
-						</div>
-						<button type="submit" id="submit" ng-click="addUser(newService)" class="blue center-align waves-effect waves-light btn">Add User</button>
-					</li>
-					<li class="collection-item" ng-show="showToken">
-						<p>A registration token for {{newUser.email}} has been generated. This token will be valid for 24 hours.</p>
-						<h5>{{token}}</h5>
-					</li>
-				</ul>
-			</div>
-			<br>
-		</div>
-		
-		<div class="row" id="agencies">
-			<div class="col s12">
-				<ul class="collection">
-					<li class="collection-item" ng-repeat="agency in agencies">
-						{{agency.name}}
-							<a modal href="#deleteAgency" ng-click="updateAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">delete</i></a>
-							<a modal href="#updateAgency" ng-click="updateAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">edit</i></a>
-					</li>
-					<li class="collection-item">
-						<a href ng-click="showAddAgencyInputs()">+ Add Agency</a>
-					</li>
-					<li class="collection-item" ng-show="addAgencyInputs">
-						<div class="row">
-							<div class="input-field col s12">
-								<input type="text" id="agencyName" ng-model="newAgency.name" class="validate">
-								<label for="agencyName">Agency Name</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12">
-								<input type="text" id="streetAddress" ng-model="newAgency.street1" class="validate">
-								<label for="streetAddress">Street Address</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12">
-								<input type="text" id="streetAddress2" ng-model="newAgency.street2" class="validate">
-								<label for="streetAddress2">Street Address 2</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s5">
-								<input type="text" id="city" ng-model="newAgency.city" class="validate">
-								<label for="city">City</label>
-							</div>
-							<div class="input-field col s3">
-								<input type="text" id="state" ng-model="newAgency.state" class="validate">
-								<label for="streetAddress">State</label>
-							</div>
-							<div class="input-field col s4">
-								<input type="text" id="zipCode" ng-model="newAgency.postal" class="validate">
-								<label for="zipCode">Zip Code</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12">
-								<input type="text" id="phoneNumber" ng-model="newAgency.phone" class="validate">
-								<label for="phoneNumber">Phone Number</label>
-							</div>
-						</div>
-						<button type="submit" id="submit" ng-click="addAgency(newAgency)" class="blue center-align waves-effect waves-light btn">Add Agency</button>
-					</li>
-				</ul>
-			</div>
-			<br>
-		</div>
-		
-		<!-- Modal Structure -->
-		<div id="deleteService" class="modal bottom-sheet">
-			<div class="modal-content">
-				<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
-				<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
-			</div>
-			<div class="modal-footer">
-				<a ng-click="deleteService(confirmService)" class=" modal-action modal-close waves-effect waves-red btn red">Delete Service</a>
-				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-			</div>
-		</div>
-		<!-- Modal Structure -->
-		<div id="editUser" class="modal bottom-sheet">
-			<div class="modal-content">
-				<h4>Admin Access for {{confirmUser.name.first}} {{confirmUser.name.last}}</h4>
-				<p>I understand that an admin user has complete access to all areas of the application.</p>
-				<p> This access includes:
-					adding and deleting services and service categories, adding and deleting agencies, creating registration 
-					tokens for new users, deleting clients, and giving and removing admin access to other users.</p>
-			</div>
-			<div class="modal-footer">
-				<a ng-click="editUser(confirmUser)" class=" modal-action modal-close waves-effect waves-orange btn orange">Make Admin</a>
-				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-			</div>	
-		</div>
-		<!-- Modal Structure -->
-		<div id="deleteUser" class="modal bottom-sheet">
-			<div class="modal-content">
-				<h4>Are you sure you would like to delete {{confirmUser.name.first}} {{confirmUser.name.last}}?</h4>
-				<p class="center-align">This process cannot be reversed.</p>
-			</div>
-			<div class="modal-footer">
-				<a ng-click="deleteUser(confirmUser)" class=" modal-action modal-close waves-effect waves-red btn red">Delete User</a>
-				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-			</div>
-		</div>
-		<!-- Modal Structure -->
-		<div id="deleteAgency" class="modal bottom-sheet">
-			<div class="modal-content">
-				<h4>Are you sure you would like to delete {{confirmAgency.name}}?</h4>
-				<p class="center-align">This process cannot be reversed.</p>
-			</div>
-			<div class="modal-footer">
-				<a ng-click="deleteAgency(confirmAgency)" class=" modal-action modal-close waves-effect waves-red btn red">Delete Agency</a>
-				<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-			</div>
-		</div>
-
 	</div>
 
-	<script src="./../node_modules/jquery/dist/jquery.js"></script>
-	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>
-	<script src="./../node_modules/angular/angular.js"></script>
-	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
-	<script src="./../app.js"></script>
-	<script src="./../services/accountService.js"></script>
-	<script src="./../services/agencyService.js"></script>
-	<script src="./../services/clientService.js"></script>
-	<script src="./../services/reportService.js"></script>
-	<script src="./../services/servicesService.js"></script>
-	<script src="./../services/userService.js"></script>
-	<script src="./../account/navController.js"></script>
-	<script src="adminController.js"></script>
-</body>
 
-</html>
+	<div class="row" id="services">
+		<div class="col s12">
+			<ul class="collection">
+				<li class="collection-item" ng-repeat="service in services">
+					{{service.name}} <small>{{service.category}}</small><a modal href="#deleteService" ng-click="deleteServiceConfirm(service)"
+						class="secondary-content"><i class="material-icons">delete</i></a>
+				</li>
+				<li class="collection-item">
+					<a href="" ng-click="showAddInputs()">+ Add Service</a>
+				</li>
+				<li class="collection-item" ng-show="addInputs">
+					<div class="input-field">
+						<input required ng-model="newService.name" type="text" class="validate">
+						<label for="name">Service Name</label>
+					</div>
+					<div class="input-field">
+						<input ng-model="newService.category" type="text" class="validate">
+						<label for="category">Service Category</label>
+					</div>
+					<button type="submit" id="submit" ng-click="addService(newService)" class="blue center-align waves-effect waves-light btn">Add Service</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="row" id="users">
+		<div class="col s12">
+			<ul class="collection">
+				<li class="collection-item" ng-repeat="user in users">
+					{{user.name.first}} {{user.name.last}} <small>{{user.agencyInfo}}</small>
+					<a modal href="#deleteUser" ng-click="editUserConfirm(user)" class="secondary-content"><i class="material-icons">delete</i></a>
+					<a modal href="#editUser" ng-click="editUserConfirm(user)" class="secondary-content"><i class="material-icons">edit</i></a>
+				</li>
+				<li class="collection-item">
+					<a href ng-click="showAddUserInputs()">+ Add User</a>
+				</li>
+				<li class="collection-item" ng-show="addUserInputs">
+					<div class="input-field">
+						<input required ng-model="newUser.agency" type="text" class="validate">
+						<label for="agency">Agency</label>
+					</div>
+					<div class="input-field">
+						<input ng-model="newUser.email" type="text" class="validate">
+						<label for="email">User Email</label>
+					</div>
+					<button type="submit" id="submit" ng-click="addUser(newService)" class="blue center-align waves-effect waves-light btn">Add User</button>
+				</li>
+				<li class="collection-item" ng-show="showToken">
+					<p>A registration token for {{newUser.email}} has been generated. This token will be valid for 24 hours.</p>
+					<h5>{{token}}</h5>
+				</li>
+			</ul>
+		</div>
+		<br>
+	</div>
+
+	<div class="row" id="agencies">
+		<div class="col s12">
+			<ul class="collection">
+				<li class="collection-item" ng-repeat="agency in agencies">
+					{{agency.name}}
+					<a modal href="#deleteAgency" ng-click="updateAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">delete</i></a>
+					<a modal href="#updateAgency" ng-click="updateAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">edit</i></a>
+				</li>
+				<li class="collection-item">
+					<a href ng-click="showAddAgencyInputs()">+ Add Agency</a>
+				</li>
+				<li class="collection-item" ng-show="addAgencyInputs">
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="agencyName" ng-model="newAgency.name" class="validate">
+							<label for="agencyName">Agency Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="streetAddress" ng-model="newAgency.street1" class="validate">
+							<label for="streetAddress">Street Address</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="streetAddress2" ng-model="newAgency.street2" class="validate">
+							<label for="streetAddress2">Street Address 2</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s5">
+							<input type="text" id="city" ng-model="newAgency.city" class="validate">
+							<label for="city">City</label>
+						</div>
+						<div class="input-field col s3">
+							<input type="text" id="state" ng-model="newAgency.state" class="validate">
+							<label for="streetAddress">State</label>
+						</div>
+						<div class="input-field col s4">
+							<input type="text" id="zipCode" ng-model="newAgency.postal" class="validate">
+							<label for="zipCode">Zip Code</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="phoneNumber" ng-model="newAgency.phone" class="validate">
+							<label for="phoneNumber">Phone Number</label>
+						</div>
+					</div>
+					<button type="submit" id="submit" ng-click="addAgency(newAgency)" class="blue center-align waves-effect waves-light btn">Add Agency</button>
+				</li>
+			</ul>
+		</div>
+		<br>
+	</div>
+
+	<!-- Modal Structure -->
+	<div id="deleteService" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
+			<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
+		</div>
+		<div class="modal-footer">
+			<a ng-click="deleteService(confirmService)" class=" modal-action modal-close waves-effect waves-red btn red">Delete Service</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+	<!-- Modal Structure -->
+	<div id="editUser" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h4>Admin Access for {{confirmUser.name.first}} {{confirmUser.name.last}}</h4>
+			<p>I understand that an admin user has complete access to all areas of the application.</p>
+			<p> This access includes: adding and deleting services and service categories, adding and deleting agencies, creating registration
+				tokens for new users, deleting clients, and giving and removing admin access to other users.</p>
+		</div>
+		<div class="modal-footer">
+			<a ng-click="editUser(confirmUser)" class=" modal-action modal-close waves-effect waves-orange btn orange">Make Admin</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+	<!-- Modal Structure -->
+	<div id="deleteUser" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h4>Are you sure you would like to delete {{confirmUser.name.first}} {{confirmUser.name.last}}?</h4>
+			<p class="center-align">This process cannot be reversed.</p>
+		</div>
+		<div class="modal-footer">
+			<a ng-click="deleteUser(confirmUser)" class=" modal-action modal-close waves-effect waves-red btn red">Delete User</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+	<!-- Modal Structure -->
+	<div id="deleteAgency" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h4>Are you sure you would like to delete {{confirmAgency.name}}?</h4>
+			<p class="center-align">This process cannot be reversed.</p>
+		</div>
+		<div class="modal-footer">
+			<a ng-click="deleteAgency(confirmAgency)" class=" modal-action modal-close waves-effect waves-red btn red">Delete Agency</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+
+</div>

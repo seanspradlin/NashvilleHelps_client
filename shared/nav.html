@@ -1,0 +1,26 @@
+<nav class="blue-grey darken-4 nav-extended" ng-controller="navController">
+    <div class="nav-wrapper container">
+        <a href="/" class="brand-logo">Nashville Helps</a>
+        <a href="#" class="button-collapse" data-activates="mobile-demo" data-sidenav="left" data-menuwidth="500" data-closeonclick="false">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul id="nav-mobile"  class="right hide-on-med-and-down">
+            <li ng-hide="isAuthenticated"><a href="/account/login">Login</a></li>
+            <li ng-show="isAuthenticated"><a href="/account">My Account</a></li>
+            <li ng-show="isAuthenticated"><a href="/dashboard">Dashboard</a></li>
+            <li ng-show="isAuthenticated && isAdmin"><a href="/admin">Admin</a></li>
+            <li ng-show="isAuthenticated && isAdmin"><a href="/admin/report">Reports</a></li>
+            <li ng-show="isAuthenticated"><a href ng-click="logout()">Log Out</a></li>
+        </ul>
+        <ul id="mobile-demo" class="side-nav">
+            <li ng-hide="isAuthenticated"><a href="/account/login">Login</a></li>
+            <li ng-show="isAuthenticated"><a href="/account">My Account</a></li>
+            <li ng-show="isAuthenticated"><a href="/dashboard">Dashboard</a></li>
+            <li ng-show="isAuthenticated && isAdmin"><a href="/admin">Admin</a></li>
+            <li ng-show="isAuthenticated && isAdmin"><a href="/admin/report">Reports</a></li>
+            <li ng-show="isAuthenticated"><a href ng-click="logout()">Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+<br>
+<br>

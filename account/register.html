@@ -1,91 +1,48 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Nashville Helps</title>
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.css" media="screen,projection"
-	/>
-	<link rel="stylesheet" href="./../assets/css/site.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-
-<body ng-app="nashhelps" ng-controller="loginController">
-	<div ng-include="'./../nav.html'"></div>
-	<div class="container">
-		<div ng-show="error">
-			<div class="row">
-				<div class="col s8 offset-s2">
-					<div class="card red lighten-5">
-						<div class="card-content">
-							<p>{{errorMessage}}</p>
-							<br>
-							<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-						</div>
-					</div>
-				</div>
+<div ng-include="'./../shared/nav.html'"></div>
+<div class="container">
+	<h4>Register for an Account</h4>
+	<br>
+	<form id="registerForm">
+		<div class="row">
+			<div class="input-field col s6">
+				<input required id="first_name" ng-model="account.first_name" required type="text" class="validate">
+				<label for="first_name">First Name</label>
 			</div>
-
+			<div class="input-field col s6">
+				<input id="last_name" ng-model="account.last_name" required type="text" class="validate">
+				<label for="last_name">Last Name</label>
+			</div>
 		</div>
-		<h4>Register for an Account</h4>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="phone" ng-model="account.phone" type="text" class="validate">
+				<label for="phone">Phone Number</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<input id="password" type="password" required ng-model="account.password" class="validate">
+				<label for="password">Password</label>
+			</div>
+			<div class="input-field col s6">
+				<input id="confirmPassword" type="password" required ng-model="confirmPassword" class="validate">
+				<label for="confirmPassword">Confirm Password</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" id="token" required ng-model="account.token" class="validate">
+				<label for="token">Access Token*</label>
+				<p>*If you do not have an access token, you can request access for your agency by emailing NashvilleHelps@gmail.com</p>
+				<p>This token is linked to an email address. In order to change the email address associated with the account, please finish
+					the registration and make changes to your email on the My Account page.</p>
+			</div>
+		</div>
+		<div class="row center-align">
+			<button type="submit" ng-click="submit(account)" ng-class="{'disabled': account.password != confirmPassword }" class="disabled blue waves-effect waves-light btn">Register</button>
+		</div>
 		<br>
-		<form id="registerForm">
-			<div class="row">
-				<div class="input-field col s6">
-					<input required id="first_name" ng-model="account.first_name" required type="text" class="validate">
-					<label for="first_name">First Name</label>
-				</div>
-				<div class="input-field col s6">
-					<input id="last_name" ng-model="account.last_name" required type="text" class="validate">
-					<label for="last_name">Last Name</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="phone" ng-model="account.phone" type="text" class="validate">
-					<label for="phone">Phone Number</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input id="password" type="password" required ng-model="account.password" class="validate">
-					<label for="password">Password</label>
-				</div>
-				<div class="input-field col s6">
-					<input id="confirmPassword" type="password" required ng-model="confirmPassword" class="validate">
-					<label for="confirmPassword">Confirm Password</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input type="text" id="token" required ng-model="account.token" class="validate">
-					<label for="token">Access Token*</label> 
-					<p>*If you do not have an access token, you can request access for your agency by emailing NashvilleHelps@gmail.com</p>
-					<p>This token is linked to an email address. In order to change the email address associated with the account, please finish the registration and make changes to your email on the My Account page.</p>
-				</div>
-			</div>
-			<div class="row center-align">
-				<button type="submit" ng-click="submit(account)" ng-class="{'disabled': account.password != confirmPassword }" class="disabled blue waves-effect waves-light btn">Register</button>
-			</div>
-			<br>
-			<br>
-			<br>
-		</form>
-	</div>
-
-	<script src="./../node_modules/jquery/dist/jquery.js"></script>
-	<script src="./../node_modules/materialize-css/dist/js/materialize.js"></script>
-	<script src="./../node_modules/angular/angular.js"></script>
-	<script src="./../node_modules/angular-materialize/src/angular-materialize.js"></script>
-	<script src="./../app.js"></script>
-	<script src="./../services/accountService.js"></script>
-	<script src="./../services/agencyService.js"></script>
-	<script src="./../services/clientService.js"></script>
-	<script src="./../services/reportService.js"></script>
-	<script src="./../services/servicesService.js"></script>
-	<script src="./../services/userService.js"></script>
-	<script src="./../account/navController.js"></script>
-	<script src="loginController.js"></script>
-</body>
-
-</html>
+		<br>
+		<br>
+	</form>
+</div>

@@ -11,25 +11,31 @@
 </head>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col s3 offset-s9">
-				<br>
-				<div class="chip blue darken-2"><a href="/account/login.html" class="white-text">Agency Sign In</a></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s6">
-				<h3>Nashville Helps</h3>
-				<p>is a team of non-profit <span class="deep-orange-text text-darken-2">organizations</span>, <span class="blue-text text-darken-2">educators</span>,
-					and other <span class="green-text text-darken-2">social service</span> providers in the Nashville area that help connect
-					adults to the resources they need</p>
-				<a href="/client" class="deep-orange darken-2 waves-effect waves-light btn">Get Started</a>
-			</div>
-		</div>
+	<div ng-app="nashhelps">
+		<div ng-view></div>
 	</div>
 	<script src="node_modules/jquery/dist/jquery.js"></script>
 	<script src="node_modules/materialize-css/dist/js/materialize.js"></script>
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="node_modules/angular-route/angular-route.js"></script>
+	<script src="node_modules/angular-materialize/src/angular-materialize.js"></script>
+	<script src="app.js"></script>
+	<script src="factories/accountService.js"></script>
+	<script src="factories/agencyService.js"></script>
+	<script src="factories/clientService.js"></script>
+	<script src="factories/servicesService.js"></script>
+	<script src="factories/userService.js"></script>
+	<script src="services/reportBuilder.js"></script>
+	<script src="services/sessionManager.js"></script>
+	<script src="shared/navController.js"></script>
+	<script src="account/accountController.js"></script>
+	<script src="account/loginController.js"></script>
+	<script src="account/registerController.js"></script>
+	<script src="admin/adminController.js"></script>
+	<script src="admin/reportController.js"></script>
+	<script src="client/clientController.js"></script>
+	<script src="dashboard/dashboardController.js"></script>
+</body>
 </body>
 
 </html>

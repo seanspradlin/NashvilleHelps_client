@@ -11,7 +11,7 @@
         $scope.services = [];
 
         function init (){
-            getAccount();
+            getCurrentUser();
             getServices();
         }
 
@@ -64,21 +64,17 @@
         }
 
 
+        function getCurrentUser(){
+            var currentUser = accountService.currentUser;
+            $scope.profile.first_name = currentUser.name.first;
+            $scope.profile.last_name = currentUser.name.last;
+            $scope.profile.email = currentUser.email;
+            $scope.profile.phone = currentUser.phone;
+            getAgency(currentUser.agency._id);
+        }
+
         function getAccount(){
-            accountService.getAccount()
-                .then(
-                    function(res){
-                        $scope.profile.first_name = res.name.first;
-                        $scope.profile.last_name = res.name.last;
-                        $scope.profile.email = res.email;
-                        $scope.profile.phone = res.phone;
-                        getAgency(res.agency._id);                       
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem retrieving your account. Please contact NashvilleHelps@gmail.com and try again later."
-                    }
-                );
+            accountService.getAccount().then(getCurrentUser);
         }
 
 
