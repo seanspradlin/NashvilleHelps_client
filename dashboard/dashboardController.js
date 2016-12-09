@@ -2,21 +2,30 @@
     angular.module('nashhelps')
         .controller('dashboardController', dashboardController);
     
-    dashboardController.$inject = ['$scope', 'clientService'];
+    dashboardController.$inject = ['$scope', 'clientService', 'accountService', '$location'];
 
-    function dashboardController($scope, clientService){
+    function dashboardController($scope, clientService, accountService, $location){
         $scope.clients = [];
         $scope.completeReferral = {};
 
         function init(){
+            getAccount();
             $scope.getClients();
+        }
+
+        function getAccount(){
+            accountService.getAccount().then(
+                function(currentUser){
+                    $scope.is_admin = currentUser.is_admin;
+                }, function redirect(err){
+                    $location.path('/account/login');
+                });
         }
         
         $scope.getClients = function(){
             clientService.getClients()
                 .then(
                     function(res){
-                        console.log(res);
                         $scope.clients = res;
                     },
                     function(err){
@@ -29,7 +38,6 @@
         //FIND OUT IF COMPLETE
 
         $scope.confirmComplete = function(clientId, referral){
-            console.log(referral);
             $scope.completeReferral.client_id = clientId;
             $scope.completeReferral.service_id = referral.service;
             $scope.completeReferral.notes = referral.notes;

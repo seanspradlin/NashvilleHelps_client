@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('reportController', reportController);
     
-    reportController.$inject = ['$scope', 'servicesService', 'agencyService', 'clientService'];
+    reportController.$inject = ['$scope', 'servicesService', 'agencyService', 'clientService', 'accountService', '$location'];
 
-    function reportController($scope, servicesService, agencyService, clientService){
+    function reportController($scope, servicesService, agencyService, clientService, accountService, $location){
         $scope.error = false;        
         $scope.services = [];
         $scope.referrals = [];
@@ -14,6 +14,20 @@
             $scope.populateAgencyTable();
             $scope.populateClientTable();
             $scope.populateServicesTable();
+        }
+
+        function getAccount(){
+            accountService.getAccount()
+                .then(
+                    function(res){
+                        if (!res.is_admin){
+                            $location.path('/account');
+                        }
+                        init();
+                    },
+                    function redirect(err){
+                        $location.path('/account/login');
+                    })
         }
 
         $scope.getServices = function(){
@@ -61,6 +75,6 @@
         function matchReferralsToAgencies(){
 
         }
-        init();
+        getAccount();
     }
 })();

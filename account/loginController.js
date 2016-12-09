@@ -6,6 +6,10 @@
 
     function loginController($scope, $location, accountService){
  
+        accountService.getAccount().then(function(res){
+            $location.path('/account');
+        });
+
         $scope.submit = function(form){
             accountService.login(form)
                 .then(

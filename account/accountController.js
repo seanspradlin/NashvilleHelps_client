@@ -2,16 +2,16 @@
     angular.module('nashhelps')
         .controller('accountController', accountController);
     
-    accountController.$inject = ['$scope', 'accountService', 'agencyService', 'servicesService'];
+    accountController.$inject = ['$scope', 'accountService', 'agencyService', 'servicesService', '$location'];
 
-    function accountController($scope, accountService, agencyService, servicesService){
+    function accountController($scope, accountService, agencyService, servicesService, $location){
 
         $scope.profile = {};
         $scope.agency = {};
         $scope.services = [];
 
         function init (){
-            getCurrentUser();
+            getAccount();
             getServices();
         }
 
@@ -63,18 +63,17 @@
                 });
         }
 
-
-        function getCurrentUser(){
-            var currentUser = accountService.currentUser;
-            $scope.profile.first_name = currentUser.name.first;
-            $scope.profile.last_name = currentUser.name.last;
-            $scope.profile.email = currentUser.email;
-            $scope.profile.phone = currentUser.phone;
-            getAgency(currentUser.agency._id);
-        }
-
         function getAccount(){
-            accountService.getAccount().then(getCurrentUser);
+            accountService.getAccount().then(
+                function(currentUser){
+                    $scope.profile.first_name = currentUser.name.first;
+                    $scope.profile.last_name = currentUser.name.last;
+                    $scope.profile.email = currentUser.email;
+                    $scope.profile.phone = currentUser.phone;
+                    getAgency(currentUser.agency._id);
+                }, function redirect(err){
+                    $location.path('/account/login');
+                });
         }
 
 

@@ -2,16 +2,16 @@
     angular.module('nashhelps')
         .controller('registerController', registerController);
     
-    registerController.$inject = ['$scope', '$window', 'accountService'];
+    registerController.$inject = ['$scope', '$location', 'accountService'];
 
-    function registerController($scope, $window, accountService){
+    function registerController($scope, $location, accountService){
         $scope.account = {};
 
         $scope.submit = function(account){
             accountService.register(account)
                 .then(
                     function(res) {
-                        $window.location.href = "/account/login.html"
+                        $location.path("/account/login");
                     }, function(err) {
                         $scope.error = true;
                         $scope.errorMessage = "There was a problem registering your account. Please contact NashvilleHelps@gmail.com and try again later."

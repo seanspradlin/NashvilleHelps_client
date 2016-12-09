@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('adminController', adminController);
     
-    adminController.$inject = ['$scope', 'servicesService', 'userService', 'agencyService'];
+    adminController.$inject = ['$scope', 'servicesService', 'userService', 'agencyService', 'accountService', '$location'];
 
-    function adminController($scope, servicesService, userService, agencyService){
+    function adminController($scope, servicesService, userService, agencyService, accountService, $location){
         $scope.services = [];
         $scope.categories = [];
         $scope.users = [];
@@ -14,6 +14,20 @@
             getServices();
             getUsers();
             getAgencies();
+        }
+
+        function getAccount(){
+            accountService.getAccount()
+                .then(
+                    function(res){
+                        if (!res.is_admin){
+                            $location.path('/account');
+                        }
+                        init();
+                    },
+                    function redirect(err){
+                        $location.path('/account/login');
+                    })
         }
 
         function getAgencies(){
@@ -156,7 +170,7 @@
             )
         }
 
-        init();
+        getAccount();
     }
 
 })();

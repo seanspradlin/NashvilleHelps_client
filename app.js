@@ -15,7 +15,7 @@
                     templateUrl: 'client/home.html'
                 })
                 .when('/account', {
-                    templateUrl: '/account/index.html',
+                    templateUrl: '/account/account.html',
                     controller: 'accountController'
                 })
                 .when('/account/login', {
@@ -27,19 +27,19 @@
                     controller: 'registerController'
                 })
                 .when('/admin', {
-                   templateUrl: '/admin/index.html',
+                   templateUrl: '/admin/admin.html',
                     controller: 'adminController'
                 })
-                .when('/admin/reports', {
+                .when('/admin/report', {
                     templateUrl: '/admin/report.html',
                     controller: 'reportController'
                 })
                 .when('/client', {
-                    templateUrl: '/client/index.html',
+                    templateUrl: '/client/client.html',
                     controller: 'clientController'
                 })
                 .when('/dashboard', {
-                    templateUrl: '/dashboard/index.html',
+                    templateUrl: '/dashboard/dashboard.html',
                     controller: 'dashboardController'
                 })
                 .otherwise({
@@ -48,7 +48,7 @@
 
             $locationProvider.html5Mode({
                 enabled: true,
-                requireBase: false
+                requireBase: true
             });
 
         }
