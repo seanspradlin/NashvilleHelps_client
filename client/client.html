@@ -79,19 +79,6 @@
 				</div>
 			</div>
 			<div class="section">
-				<h4>What types of services do you need?</h4>
-				<div class="row">
-					<ul ng-repeat="category in categories track by $index" class="collection with-header">
-						<li class="collection-header">
-							{{category}}
-						</li>
-						<li class="collection-item" ng-repeat="service in services | filter: {category: category}" ng-class="{'active': isActive(service) }" ng-click="toggleService(service)" >
-							<h5>{{service.name}}<a class="secondary-content"><i class="material-icons">add</i></a></h5>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="section">
 				<div class="row">
 					<h4>Did anyone help you fill out this form today?</h4>
 					<p>If any person or organization helped you fill out this form, please enter in his or her name and organization (if applicable)
@@ -104,6 +91,20 @@
 				</div>
 			</div>
 			<div class="section">
+				<h4>What types of services do you need?</h4>
+				<div class="row">
+					<ul ng-repeat="category in categories track by $index" class="collection with-header">
+						<li class="collection-header">
+							{{category}}
+						</li>
+						<li class="collection-item" ng-repeat="service in services | filter: {category: category}" ng-class="{'active': isActive(service) }" ng-click="toggleService(service)" >
+							<h5>{{service.name}}<a class="secondary-content"><i class="material-icons">add</i></a></h5>
+						</li>
+					</ul>
+					<br>
+					<br>
+					<br>
+				</div>
 				<div class="row">
 					<h4>Consent</h4>
 					<p>I consent to the above information being sent to Nashville Helps organizations. I understand that the information in
@@ -116,7 +117,16 @@
 							<input required id="consent" type="checkbox" ng-model="consent">
 							<label for="consent">I consent to the above information.</label>
 						</p>
-						<button type="submit" ng-click="submit(client)" ng-class="{'disabled': !consent }" class="blue center-align waves-effect waves-light btn">Submit</button>
+						<button type="submit" ng-click="submit(client)" ng-class="{'disabled': !consent || client.services.length < 1 }" class="blue center-align waves-effect waves-light btn">Submit</button>
+						<div>
+							<p>Name: </p>
+							<p>Address: </p>
+							<p>Phone Number: </p>
+							<p>Email Address: </p>
+							<p>Organization Assisting: </p>
+							<p>Services Requested: </p>
+							<p>Consent: </p>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -56,14 +56,15 @@
             }
 
             $scope.submit = function(){
-                clientService.addClient($scope.client).then(
+                console.log($scope.client.services)
+                /*clientService.addClient($scope.client).then(
                     function(res){
                         $scope.success = true;
                     },
                     function(err){
                         $scope.error = true;
                         $scope.errorMessage = "An error occurred submitting your request. Please contact NashvilleHelps@gmail.com and try again later."                        
-                    });
+                    });*/
             }
 
             init();
