@@ -117,19 +117,9 @@
 							<input required id="consent" type="checkbox" ng-model="consent">
 							<label for="consent">I consent to the above information.</label>
 						</p>
-						<button type="submit" ng-click="submit(client)" ng-class="{'disabled': !consent || client.services.length < 1 }" class="blue center-align waves-effect waves-light btn">Submit</button>
-						<div>
-							<p>Name: </p>
-							<p>Address: </p>
-							<p>Phone Number: </p>
-							<p>Email Address: </p>
-							<p>Organization Assisting: </p>
-							<p>Services Requested: </p>
-							<p>Consent: </p>
-						</div>
+						<button type="submit" ng-submit="submit(client)" ng-class="{'disabled': !consent || client.services.length < 1 }" class="blue center-align waves-effect waves-light btn">Submit</button>
 					</div>
 				</div>
 			</div>
 		</form>
-
 	</div>

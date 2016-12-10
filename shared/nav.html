@@ -7,7 +7,7 @@
         <ul id="nav-mobile"  class="right hide-on-med-and-down">
             <li ng-hide="is_authenticated"><a ng-href="/account/login">Login</a></li>
             <li ng-show="is_authenticated"><a ng-href="/account">My Account</a></li>
-            <li ng-show="is_authenticated"><a ng-href="/dashboard">Dashboard</a></li>
+            <li ng-show="is_authenticated"><a ng-href="/dashboard">Client Dashboard</a></li>
             <li ng-show="is_authenticated && is_authorized"><a ng-href="/admin">Admin</a></li>
             <li ng-show="is_authenticated && is_authorized"><a ng-href="/admin/report">Reports</a></li>
             <li ng-show="is_authenticated"><a href ng-click="logout()">Log Out</a></li>
@@ -15,7 +15,7 @@
         <ul id="mobile-demo" class="side-nav">
             <li ng-hide="is_authenticated"><a ng-href="/account/login">Login</a></li>
             <li ng-show="is_authenticated"><a ng-href="/account">My Account</a></li>
-            <li ng-show="is_authenticated"><a ng-href="/dashboard">Dashboard</a></li>
+            <li ng-show="is_authenticated"><a ng-href="/dashboard">Client Dashboard</a></li>
             <li ng-show="is_authenticated && is_authorized"><a ng-href="/admin">Admin</a></li>
             <li ng-show="is_authenticated && is_authorized"><a ng-href="/admin/report">Reports</a></li>
             <li ng-show="is_authenticated"><a href ng-click="logout()">Log Out</a></li>

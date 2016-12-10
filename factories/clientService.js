@@ -40,12 +40,22 @@
                     return res.data;
                 });
         }
+
+        function editClient (client){
+            return $http.put(clientApi + "/" + client.client_id, client);
+        }
+        
+        function deleteClient (clientId){
+            return $http.delete(clientApi + "/" + client.client_id);
+        }
         
         return {
             addClient: addClient,
             getClients: getClients,
             getReferrals: getReferrals,
-            completeReferral: completeReferral
+            completeReferral: completeReferral,
+            editClient: editClient,
+            deleteClient: deleteClient
         }
     }
 })();

@@ -1,38 +1,50 @@
 <div ng-include="'./../shared/nav.html'"></div>
 <div class="container">
-	<h4>Dashboard</h4>
+	<h4>Client Dashboard</h4>
 	<div class="row">
 		<div class="col s4">
-			<div class="collection">
-				<a href="#!" class="collection-item black-text">Active<span class="badge"></span></a>
-				<a href="#!" class="collection-item black-text">Completed<span class="badge"></span></a>
-				<a href="#!" class="collection-item black-text">Completed by My Agency<span class="badge"></span></a>
-			</div>
-			<div class="card grey lighten-4">
+			<div class="card">
 				<div class="card-content">
-					<p>Labels:</p>
+					<div class="input-field col12">
+						<input type="text" id="search" ng-model="searchBox">
+						<label for="search">Search</label>
+					</div>
 					<br>
-					<div class="blue-grey lighten-1 chip"><span class="white-text">Service Still Needed</span></div>
-					<div class="orange lighten-1 chip"><span class="white-text">Service Fulfilled</span></div>
+					<p>
+						<input type="checkbox" name="fulfilled" id="fulfilled" ng-click="toggleAll()" ng-checked="all">
+						<label for="fulfilled">Show All (Fulfilled and Open)</label>
+						<p/>
+						<br>
+						<h6>Labels:</h6>
+						<div class="blue-grey lighten-1 chip"><span class="white-text">Service Still Needed</span></div>
+						<div class="orange lighten-1 chip"><span class="white-text">Service Fulfilled</span></div>
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="col s8">
+			<div class="card" ng-repeat="client in clients | filter:searchBox | filter:showAll track by $index ">
+				<div class="card-content">
 
-			<div class="card-panel" ng-repeat="client in clients">
-				<h5>{{client.name.first}} {{client.name.last}}</h5>
-				<p>Phone Number: {{client.phone}}</p>
-				<p>Address:</p>
-				<p>{{client.address.street1}}</p>
-				<p ng-if="client.address.street2">{{client.address.street2}}</p>
-				<p>{{client.address.city}} {{client.address.state}} {{client.address.postal}}</p>
-				<p>Email Address: {{client.email}}</p>
-				<h6>Services Requested:</h6>
-				<div>
+					<h5>{{client.name.first}} {{client.name.last}}</h5>
+					<p>
+						<strong>Phone Number:</strong> {{client.phone}} <br/>
+						<strong>Address:</strong> {{client.address.street1}}<span ng-if="client.address.street2"> {{client.address.street2}}</span>,
+						{{client.address.city}}, {{client.address.state}} {{client.address.postal}} <br/>
+						<strong>Email Address:</strong> {{client.email}} <br/>
+						<strong>Organization Assisting:</strong> {{client.assistant || "N/A"}} <br/>
+						<strong>Client Notes:</strong> {{client.client_notes || "N/A"}} <br/>
+					</p>
 					<br>
-					<a modal href="#complete" ng-click="confirmComplete(client._id, referral)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }"
-						class="lighten-1 chip"><span class="white-text">{{referral.service_name}}</span></a>
+					<h6>Services Requested:</h6>
+					<div>
+						<a modal href="#complete" ng-click="confirmComplete(client._id, referral)" ng-repeat="referral in client.referrals" ng-class="{'orange': referral.is_complete, 'blue-grey': !referral.is_complete }"
+							class="lighten-1 chip"><span class="white-text">{{referral.service_name}}</span></a>
+					</div>
+				</div>
+				<div class="card-action" ng-show="is_admin">
+					<a modal href="#editClientModal" ng-click="editClientConfirm(client)">Edit Client Info</a>
+					<a modal href="#deleteClientModal" ng-click="deleteClientConfirm(client)">Delete Client</a>
 				</div>
 			</div>
 		</div>
@@ -43,12 +55,96 @@
 			<h5>Notes about this referral:</h5>
 			<textarea class="materialize-textarea" ng-model="completeReferral.notes"></textarea>
 			<br>
-			<input type="checkbox" id="is_complete" ng-model="completeReferral.is_complete">
-			<label for="is_complete">This service is going to be provided.</label>
-
+			<span ng-hide="completeReferral.is_complete">
+				<input type="checkbox" id="is_complete" ng-model="completeReferral.is_complete">
+				<label for="is_complete">My agency will complete this referral.</label>
+			</span>
+			<span ng-show="completeReferral.is_complete">
+				<span class="teal-text">This referral has been completed by {{completeReferralAgency || "my agency. Please click save below to confirm. If you made the selection by mistake, please click cancel"}}.</span>
+			</span>
 		</div>
 		<div class="modal-footer">
-			<a ng-click="markComplete(completeReferral)" class=" modal-action modal-close waves-effect waves-green btn-flat">Complete</a>
+			<a ng-click="markComplete(completeReferral)" class=" modal-action modal-close waves-effect waves-green btn-flat">Save</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+
+	<div id="deleteClientModal" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h6>Are you sure you would like to delete {{deleteClient.name.first}} {{deleteClient.name.last}}?
+		</div>
+		<div class="modal-footer">
+			<a ng-click="deleteClientSave(deleteClient._id)" class=" modal-action modal-close waves-effect waves-green btn-flat">Delete Client</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+
+	<div id="editClientModal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h5>Edit Client Info</h5>
+			<div class="row">
+				<div class="input-field col s6">
+					<input required id="first_name" type="text" ng-model="editClient.first_name" class="validate">
+					<label for="first_name">First Name</label>
+				</div>
+				<div class="input-field col s6">
+					<input id="last_name" type="text" ng-model="editClient.last_name" class="validate">
+					<label for="last_name">Last Name</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="phone" type="text" ng-model="editClient.phone" class="validate">
+					<label for="phone">Primary Phone Number</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="email" type="email" ng-model="editClient.email" class="validate">
+					<label for="email">Email</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="text" id="streetAddress" ng-model="editClient.street1" class="validate">
+					<label for="streetAddress">Street Address</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="text" id="streetAddress2" ng-model="editClient.street2" class="validate">
+					<label for="streetAddress2">Street Address 2</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s5">
+					<input type="text" id="city" ng-model="editClient.city" class="validate">
+					<label for="city">City</label>
+				</div>
+				<div class="input-field col s3">
+					<input type="text" id="state" ng-model="editClient.state" class="validate">
+					<label for="streetAddress">State</label>
+				</div>
+				<div class="input-field col s4">
+					<input type="text" id="zipCode" ng-model="editClient.postal" class="validate">
+					<label for="zipCode">Zip Code</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<textarea id="notes" class="materialize-textarea" ng-model="editClient.notes"></textarea>
+					<label for="notes">Notes</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="text" id="organizationAssisting" ng-model="editClient.assistant" class="validate">
+					<label for="organizationAssisting">Name and Organization Assisting</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a ng-click="editClientSave(editClient)" class=" modal-action modal-close waves-effect waves-green btn-flat">Save Changes</a>
 			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 		</div>
 	</div>
