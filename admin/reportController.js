@@ -6,6 +6,17 @@
 
     function reportController($scope, reportBuilder, accountService, $location){
         $scope.report = {};
+        $scope.order = 'dateRequested';
+
+        $scope.orderByDate = function(){
+            $scope.order = 'dateRequested';            
+        }
+        $scope.orderByName = function(){
+            $scope.order = 'name.last';           
+        }
+        $scope.orderByZip = function(){
+            $scope.order = "postal";
+        }
         function init(){
             reportBuilder.generateReport()
                 .then(function(res){

@@ -57,6 +57,7 @@
 
 
         function findServiceTimes(referrals){
+            console.log(referrals)
             var times = {};
             var today = new Date();
             var month = today.getMonth();
@@ -117,8 +118,37 @@
         //AGENCIES
         
         
-        function generateAgencyArray(){}
+        function generateAgencyArray(){
+            var agenciesArr = [];
+            agencies.forEach(function(v){
+                agenciesArr = agenciesArr.concat(
+                    v.services.map(function(s){
+                        return {
+                            _id: v._id,
+                            name: v.name,
+                            phone: v.phone,
+                            address: v.address,
+                            service: s
+                        }
+                    })
+                );
+            });            
+            agenciesArr = agenciesArr.map(function(v){
+                v.times = findServiceTimes(generateAgencyTotals(v));
+                return v;
+            });
+                console.log(agenciesArr)
+                return agenciesArr;
+        }
         
+        function generateAgencyTotals(service){
+            return report.clients.filter(function(v){
+                if (v.agency && v.service){
+                    return v.agency._id == service._id && v.service._id == service.service._id
+                }
+            });
+            
+        }
 
 
 

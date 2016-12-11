@@ -2,6 +2,16 @@
 <div class="container">
 
 
+	<h4>Reports</h4>
+	<div class="row">
+		<div class="col s12">
+			<ul tabs class="tabs blue-grey lighten-5">
+				<li class="tab col s4"><a href="#clients" class="blue-grey-text">Clients by Service Requested</a></li>
+				<li class="tab col s4"><a href="#services" class="blue-grey-text">Requests by Service</a></li>
+				<li class="tab col s4"><a href="#agencies" class="blue-grey-text">Agencies by Service Offered</a></li>
+			</ul>
+		</div>
+	</div>
 	<!-- INSERT TABLE HERE 
           # services requested; average 
           # services fulfilled
@@ -10,19 +20,20 @@
           # of services requested / # of agencies per service category
           # of unfulfilled requests
         -->
+	<div id="services">
+
 	<table class="striped">
 		<thead>
-			<h1>Request by Service</h1>
 			<tr>
-				<td>Service Name</td>
-				<td>Category</td>
-				<td>Agencies Providing</td>
-				<td>Month</td>
-				<td>Quarter</td>
-				<td>Year</td>
-				<td>All Time</td>
-				<td>Total Fulfilled</td>
-				<td>Total Not Fulfilled</td>
+				<th>Service Name</th>
+				<th>Category</th>
+				<th>Agencies Providing</th>
+				<th>Month</th>
+				<th>Quarter</th>
+				<th>Year</th>
+				<th>All Time</th>
+				<th>Total Fulfilled</th>
+				<th>Total Not Fulfilled</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,25 +50,25 @@
 			</tr>
 		</tbody>
 	</table>
-
+	</div>
+<div id="clients">
 	<table class="striped">
 		<thead>
-			<h1>Referrals</h1>
 			<tr>
-				<th>Client Name</td>
-				<th>Zip Code</th>
+				<th class="pointer" ng-click="orderByName()">Client Name</th>
+				<th class="pointer" ng-click="orderByZip()">Zip Code</th>
 				<th>Service</th>
 				<th>Fulfilled</th>
 				<th>Agencies Helping</th>
-				<th>Date Requested</th>
+				<th class="pointer" ng-click="orderByDate()">Date Requested</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="client in report.clients">
+			<tr ng-repeat="client in report.clients | orderBy: order">
 				<td>{{client.name.first}} {{client.name.last}}</td>
 				<td>{{client.postal}}</td>
 				<td>{{client.service.name}}</td>
-				<td>{{client.fulfilled}}</td>
+				<td>{{client.fulfilled ? "Y" : "N"}}</td>
 				<td>{{client.agency.name || "No agency has provided this service"}}</td>
 				<td>{{client.dateRequested}}</td>
 			</tr>
@@ -70,20 +81,29 @@
 		<h5>Totals:</h5>
 		<p>To date, there have been {{report.clients.length}} requests for {{report.client.total}} clients. Of the client requests, {{report.client.totalFulfilled}} requests have been filled. Requests took on average {{report.client.averageCompletion}} days to complete.</p>
 	</div>
-
+</div>
+<div id="agencies">
 	<table class="striped">
 		<thead>
-			<h1>Agencies</h1>
 			<tr>
-				<td>Agency Name</td>
-				<td>Services Offered</td>
-				<td>Last Month</td>
-				<td>Last Quarter</td>
-				<td>Last Year</td>
-				<td>All Time</td>
+				<th>Service Name</th>
+				<th>Agency</th>
+				<th>Last Month</th>
+				<th>Last Quarter</th>
+				<th>Last Year</th>
+				<th>All Time</th>
 			</tr>
 		</thead>
-		<tbody></tbody>
+		<tbody>
+			<tr ng-repeat="agency in report.agencies">
+				<td>{{agency.service.name}}</td>
+				<td>{{agency.name}}</td>
+				<td>{{agency.times.thisMonth.length || 0}}</td>
+				<td>{{agency.times.thisQuarter.length || 0}}</td>
+				<td>{{agency.times.thisYear.length || 0}}</td>
+				<td>{{agency.times.allTime.length || 0}}</td>
+			</tr>
+		</tbody>
 	</table>
 
-</div>
+</div></div>
