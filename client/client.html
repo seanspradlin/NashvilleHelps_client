@@ -3,7 +3,8 @@
 			<br>
 			<a ng-href="/" class="grey lighten-3 grey-text text-darken-4 btn">Back</a></div>
 	</div>
-	
+	<my-message ng-show="message" message="message"></my-message>
+
 	<div ng-hide="success">
 		<form id="clientForm" class="col s12">
 			<div class="section">
@@ -117,7 +118,7 @@
 							<input required id="consent" type="checkbox" ng-model="consent">
 							<label for="consent">I consent to the above information.</label>
 						</p>
-						<button type="submit" ng-submit="submit(client)" ng-class="{'disabled': !consent || client.services.length < 1 }" class="blue center-align waves-effect waves-light btn">Submit</button>
+						<button type="submit" ng-click="submit(client)" ng-class="{'disabled': !consent || client.services.length < 1 }" class="blue center-align waves-effect waves-light btn">Submit</button>
 					</div>
 				</div>
 			</div>

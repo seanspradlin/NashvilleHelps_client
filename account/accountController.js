@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('accountController', accountController);
     
-    accountController.$inject = ['$scope', 'accountService', 'agencyService', 'servicesService', '$location'];
+    accountController.$inject = ['$scope', 'accountService', 'agencyService', 'servicesService', '$location', '$timeout'];
 
-    function accountController($scope, accountService, agencyService, servicesService, $location){
+    function accountController($scope, accountService, agencyService, servicesService, $location, $timeout){
 
         $scope.profile = {};
         $scope.agency = {};
@@ -44,23 +44,25 @@
                 servicesService.getService(serviceId)
                     .then(function(res){
                         $scope.agency.services.push(res);
-                    })
+                    }, err)
             })
         }
 
         $scope.addServiceToAgency = function(serviceId){
             agencyService.addServiceToAgency(serviceId, $scope.agency.agency_id)
                 .then(function(res){
+                    success();
                     getAccount();
                     $scope.addAgencyInputs = false;                    
-                });
+                }, err);
         }
 
         $scope.removeServiceFromAgency = function(serviceId){
             agencyService.removeServiceFromAgency(serviceId, $scope.agency.agency_id)
                 .then(function(res){
+                    success();
                     getAccount();
-                });
+                }, err);
         }
 
         function getAccount(){
@@ -81,13 +83,9 @@
             accountService.changePassword(password)
                 .then(
                     function(res){
-                        $scope.success = true;
+                        success();
                         $scope.password = ""
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem saving your new password. Please contact NashvilleHelps@gmail.com and try again later."
-                    }
+                    }, err
                 );
         }
 
@@ -99,13 +97,9 @@
             accountService.updateAccount(account)
                 .then(
                     function(res){
-                        $scope.success = true;     
+                        success();  
                         getAccount();                   
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem saving your changes. Please contact NashvilleHelps@gmail.com and try again later."
-                    }
+                    }, err
                 );
         }
 
@@ -113,17 +107,34 @@
             agencyService.updateAgency(agency)
                 .then(
                     function(res){
-                        $scope.success = true;
+                        success();
                         getAccount();
-                    },
-                    function (err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem saving your changes. Please contact NashvilleHelps@gmail.com and try again later."
-                    }
-                )
+                    }, err)
         }
 
         init();
+
+        function success(){
+            $scope.message = {
+                body: "Success! Your changes have been saved.",
+                title: "",
+                error: false
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 2000);
+        }
+        
+        function err(err){
+            $scope.message = {
+                body: "There was a problem saving your changes. " + err.Message + "Please contact NashvilleHelps@gmail.com and try again later.",
+                title: "An error has occurred",
+                error: true
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
+        }
     }
 
 })();

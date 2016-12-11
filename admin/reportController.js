@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('reportController', reportController);
     
-    reportController.$inject = ['$scope', 'reportBuilder', 'accountService', '$location'];
+    reportController.$inject = ['$scope', 'reportBuilder', 'accountService', '$location', '$timeout'];
 
-    function reportController($scope, reportBuilder, accountService, $location){
+    function reportController($scope, reportBuilder, accountService, $location, $timeout){
         $scope.report = {};
         $scope.order = 'dateRequested';
 
@@ -21,7 +21,6 @@
             reportBuilder.generateReport()
                 .then(function(res){
                     $scope.report = res;
-                    console.log($scope.report);
                 })
         }
         

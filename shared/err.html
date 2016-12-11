@@ -1,62 +1,11 @@
-dashboard	<div ng-show="success">
-		<br>
-		<br>
-
-		<div class="row">
-			<div class="col s8 offset-s2">
-				<div class="card green lighten-4">
-					<div class="card-content">
-						<p>Your changes have been saved succesfully.</p>
-					</div>
-				</div>
+<div class="row">
+	<div class="col s8 offset-s2">
+		<div class="card lighten-5" ng-class="message.error ? 'red' : 'green'">
+			<div class="card-content">
+				<h4><span class="card-title">{{message.title}}</span></h4>
+				<p>{{message.body}}</p>		
+				<br>		
 			</div>
 		</div>
-
 	</div>
-	<div ng-show="error">
-		<div class="row">
-			<div class="col s8 offset-s2">
-				<div class="card red lighten-5">
-					<div class="card-content">
-						<p>{{errorMessage}}</p>
-						<br>
-						<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
-client form <div ng-show="success">
-		<br>
-		<br>
-
-		<div class="row">
-			<div class="col s8 offset-s2">
-				<div class="card green lighten-4">
-				<div class="card-content">
-					<h4><span class="card-title">Success!</span></h4>
-					<p>Thanks for submitting your information! Someone will contact you from one of our partner organizations soon with details on how they can help.</p>
-					<br>
-					<p>To request more information about Nashville Helps, please contact NashvilleHelps@gmail.com, or Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-				</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<div ng-show="error">
-		<div class="row">
-			<div class="col s8 offset-s2">
-				<div class="card red lighten-4">
-				<div class="card-content">
-					<h4><span class="card-title">Error:</span></h4>
-					<p>{{errorMessage}}</p>
-					<br>
-					<p>To request more information about Nashville Helps, Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov</p>
-				</div></div>
-			</div>
-		</div>
-
-	</div>
+</div>

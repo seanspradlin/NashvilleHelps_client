@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('clientController', clientController);
 
-        clientController.$inject = ['$scope', 'clientService', 'servicesService'];
+        clientController.$inject = ['$scope', 'clientService', 'servicesService', '$timeout'];
 
-        function clientController($scope, clientService, servicesService){
+        function clientController($scope, clientService, servicesService, $timeout){
             
             $scope.client = {
                 services: []
@@ -21,11 +21,7 @@
                     .then(
                         function(res){
                             $scope.categories = res;
-                        },
-                        function(err){
-                            $scope.error = true;
-                            $scope.errorMessage = "There was a problem retrieving the categories. Please contact NashvilleHelps@gmail.com and try again later.";
-                        }
+                        }, err
                     );
             }
 
@@ -47,25 +43,44 @@
                         function(res){
                             $scope.services = res;
                             $scope.getCategories();
-                        },
-                        function(err){
-                            $scope.error = true;
-                            $scope.errorMessage = "There was a problem retrieving the services. Please contact NashvilleHelps@gmail.com and try again later.";
-                        }
+                        }, err
                     );
             }
 
             $scope.submit = function(){
+                        console.log("eroi2 jk")
+                
                 clientService.addClient($scope.client).then(
                     function(res){
+                        console.log("CSuldhrugdhliug")
                         $scope.success = true;
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "An error occurred submitting your request. Please contact NashvilleHelps@gmail.com and try again later."                        
-                    });
+                        success();
+                    }, err);
             }
 
             init();
+
+            
+        function success(){
+            $scope.message = {
+                body: "Thanks for submitting your information! Someone will contact you from one of our partner organizations soon with details on how they can help. To request more information about Nashville Helps, please contact NashvilleHelps@gmail.com, or Megan Godbey at (615) 880-2264 or Megan.Godbey@nashville.gov",
+                title: "Success",
+                error: false
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
+        }
+        
+        function err(err){
+            $scope.message = {
+                body: "An error occurred processing your request. " + err.Message + "Please contact NashvilleHelps@gmail.com and try again later.",
+                title: "An error has occurred",
+                error: true
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
+        }
         }
 })();

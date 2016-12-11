@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('dashboardController', dashboardController);
     
-    dashboardController.$inject = ['$scope', 'clientService', 'agencyService', 'accountService', '$location'];
+    dashboardController.$inject = ['$scope', 'clientService', 'agencyService', 'accountService', '$location', '$timeout'];
 
-    function dashboardController($scope, clientService, agencyService, accountService, $location){
+    function dashboardController($scope, clientService, agencyService, accountService, $location, $timeout){
         $scope.clients = [];
         $scope.completeReferral = {};
 
@@ -44,11 +44,7 @@
                 .then(
                     function(res){
                         $scope.clients = res;
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem retrieving the clients. Please contact NashvilleHelps@gmail.com and try again later.";
-                    }
+                    }, err
                 );
         }
 
@@ -81,7 +77,7 @@
         }
 
         $scope.editClientSave = function(client){
-            clientService.editClient(client).then(getClients);
+            clientService.editClient(client).then(getClients, err);
         }
 
         $scope.deleteClientConfirm = function(client){
@@ -89,7 +85,7 @@
         }
 
         $scope.deleteClientSave = function(clientId){
-            clientService.deleteClient(clientId).then(getClients);
+            clientService.deleteClient(clientId).then(getClients, err);
         }
 
         function getAgencyName(agencyId){
@@ -103,14 +99,33 @@
             clientService.completeReferral($scope.completeReferral)
                 .then(  
                     function(res){
-                        $scope.success = true;
+                        success();
                         init();
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem saving your changes. Please contact NashvilleHelps@gmail.com and try again later.";
-                    }
+                    },err
                 );
+        }
+
+        
+        function success(){
+            $scope.message = {
+                body: "Your changes have been saved.",
+                title: "Success",
+                error: false
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
+        }
+        
+        function err(err){
+            $scope.message = {
+                body: "There was a problem saving your changes. " + err.Message + "Please contact NashvilleHelps@gmail.com and try again later.",
+                title: "An error has occurred",
+                error: true
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
         }
 
         init();

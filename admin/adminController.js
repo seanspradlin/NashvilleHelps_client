@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('adminController', adminController);
     
-    adminController.$inject = ['$scope', 'servicesService', 'userService', 'agencyService', 'accountService', '$location'];
+    adminController.$inject = ['$scope', 'servicesService', 'userService', 'agencyService', 'accountService', '$location', '$timeout'];
 
-    function adminController($scope, servicesService, userService, agencyService, accountService, $location){
+    function adminController($scope, servicesService, userService, agencyService, accountService, $location, $timeout){
         $scope.services = [];
         $scope.categories = [];
         $scope.users = [];
@@ -34,11 +34,8 @@
             agencyService.getAgencies()
                 .then(function(res){
                     $scope.agencies = res;
-                },
-                function (err){
-                    $scope.error = true;
-                    $scope.errorMessage = "There was a problem retrieving the agencies. Please contact NashvilleHelps@gmail.com and try again later.";
-                })
+                }, err
+                )
         }
 
         $scope.showAddAgencyInputs = function(){
@@ -53,11 +50,8 @@
                         getAgencies();
                         $scope.showAddAgencyInputs = false;
                         $scope.newAgency = {};
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem adding the new agency. Please contact NashvilleHelps@gmail.com and try again later.";
-                    })
+                    }, err
+                )
         }
 
         function getUsers(){
@@ -66,11 +60,7 @@
                     function(res){
                         $scope.users = res;
                         populateAgencies();
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem retrieving the users. Please contact NashvilleHelps@gmail.com and try again later.";
-                    }
+                    }, err
                 )
         }   
 
@@ -80,12 +70,12 @@
 
         $scope.editUser = function(user){
             userService.editUser(user)
-                .then(getUsers);
+                .then(getUsers, err);
         }
 
         $scope.deleteUser = function(user){
             userService.deleteUser(user.id)
-                .then(getUsers);
+                .then(getUsers, err);
         }
 
         $scope.showAddUserInputs = function(){
@@ -96,7 +86,6 @@
         $scope.addUser = function(newUser){
             agencyService.createRegistrationTokenForAgency(newUser)
                 .then(function(res){
-                    console.log(res);
                     $scope.addUserInputs = false;
                     $scope.showToken = true;
                     $scope.token = res.token;
@@ -124,11 +113,7 @@
                     function(res){
                         $scope.services = res;
                         $scope.getCategories();
-                    },
-                    function(err){
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem retrieving the services. Please contact NashvilleHelps@gmail.com and try again later.";
-                    }
+                    }, err
                 );
         }
 
@@ -147,11 +132,7 @@
             .then(
                 function(res){
                     init();
-                },
-                function(err){
-                    $scope.error = true;
-                    $scope.errorMessage = "There was a problem adding the service. Please contact NashvilleHelps@gmail.com and try again later."
-                }
+                }, err
             )
         }
 
@@ -167,16 +148,12 @@
                 function(res){
                     $scope.addInputs = false;
                     init();
-                },
-                function(err){
-                    $scope.error = true;
-                    $scope.errorMessage = "There was a problem deleting the service. Please contact NashvilleHelps@gmail.com and try again later."
-                }
+                }, err
             )
         }
 
         $scope.editService = function(service){
-            servicesService.editService(service).then(init);
+            servicesService.editService(service).then(init, err);
         }
 
         $scope.editAgencyConfirm = function(agency){
@@ -194,15 +171,37 @@
         }
 
         $scope.deleteAgency = function(agencyId){
-            agencyService.deleteAgency(agencyId).then(init);
+            agencyService.deleteAgency(agencyId).then(init, err);
         }
 
         $scope.editAgency = function(agency){
-            agencyService.updateAgency(agency).then(init);
+            agencyService.updateAgency(agency).then(init, err);
         }
 
 
         getAccount();
+
+        function success(){
+            $scope.message = {
+                body: "Your changes have been saved.",
+                title: "Success",
+                error: false
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
+        }
+        
+        function err(err){
+            $scope.message = {
+                body: "There was a problem saving your changes. " + err.Message + "Please contact NashvilleHelps@gmail.com and try again later.",
+                title: "An error has occurred",
+                error: true
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
+        }
     }
 
 })();

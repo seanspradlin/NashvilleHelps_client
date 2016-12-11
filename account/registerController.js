@@ -2,9 +2,9 @@
     angular.module('nashhelps')
         .controller('registerController', registerController);
     
-    registerController.$inject = ['$scope', '$location', 'accountService'];
+    registerController.$inject = ['$scope', '$location', 'accountService', '$timeout'];
 
-    function registerController($scope, $location, accountService){
+    function registerController($scope, $location, accountService, $timeout){
         $scope.account = {};
 
         $scope.submit = function(account){
@@ -12,11 +12,19 @@
                 .then(
                     function(res) {
                         $location.path("/account/login");
-                    }, function(err) {
-                        $scope.error = true;
-                        $scope.errorMessage = "There was a problem registering your account. Please contact NashvilleHelps@gmail.com and try again later."
-                    }
+                    }, err
                 );
+        }
+
+        function err(err){
+            $scope.message = {
+                body: "There was a problem registering your account. " + err.Message + " Please contact NashvilleHelps@gmail.com and try again later.",
+                title: "An error has occurred",
+                error: true
+            }
+            $timeout(function(){
+                $scope.message = null;
+            }, 5000);
         }
     }
 })();
