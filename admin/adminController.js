@@ -93,11 +93,13 @@
             $scope.newUser = {};
         }
 
-        $scope.addUser = function(){
-            agencyUser.generateToken()
+        $scope.addUser = function(newUser){
+            agencyService.createRegistrationTokenForAgency(newUser)
                 .then(function(res){
-                    $scope.showAddUserInputs = false;
-                    $scope.token = res;
+                    console.log(res);
+                    $scope.addUserInputs = false;
+                    $scope.showToken = true;
+                    $scope.token = res.token;
                 });
         }
 
@@ -144,7 +146,7 @@
             servicesService.addService(service)
             .then(
                 function(res){
-                    $scope.getServices();
+                    init();
                 },
                 function(err){
                     $scope.error = true;
@@ -153,6 +155,9 @@
             )
         }
 
+        $scope.editServiceConfirm = function(service){
+            $scope.confirmService = service;
+        }
         $scope.deleteServiceConfirm = function(service){
             $scope.confirmService = service;
         }
@@ -161,7 +166,7 @@
                 .then(
                 function(res){
                     $scope.addInputs = false;
-                    $scope.getServices();
+                    init();
                 },
                 function(err){
                     $scope.error = true;
@@ -169,6 +174,33 @@
                 }
             )
         }
+
+        $scope.editService = function(service){
+            servicesService.editService(service).then(init);
+        }
+
+        $scope.editAgencyConfirm = function(agency){
+            $scope.confirmAgency = agency;
+            $scope.confirmAgency.agency_id = agency._id;
+            $scope.confirmAgency.street1 = agency.address.street1;
+            $scope.confirmAgency.street2 = agency.address.street2;
+            $scope.confirmAgency.city = agency.address.city;
+            $scope.confirmAgency.state = agency.address.state;
+            $scope.confirmAgency.postal = agency.address.postal;
+        }
+
+        $scope.deleteAgencyConfirm = function(agency){
+            $scope.confirmAgency = agency;
+        }
+
+        $scope.deleteAgency = function(agencyId){
+            agencyService.deleteAgency(agencyId).then(init);
+        }
+
+        $scope.editAgency = function(agency){
+            agencyService.updateAgency(agency).then(init);
+        }
+
 
         getAccount();
     }

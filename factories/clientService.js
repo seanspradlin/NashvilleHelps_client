@@ -5,7 +5,7 @@
     clientService.$inject = ['$http', 'api'];
 
     function clientService($http, api){
-        var clientApi = api.baseUrl + "clients";
+        var clientApi = api.baseUrl + "clients/";
         
         function addClient(client){
             return $http.post(clientApi, client).then(
@@ -34,7 +34,7 @@
         }
 
         function completeReferral(referral){
-           return $http.post(clientApi + "/" + referral.client_id + '/service/' + referral.service_id, referral)
+           return $http.post(clientApi + referral.client_id + '/service/' + referral.service_id, referral)
                 .then(
                     function(res){
                     return res.data;
@@ -42,11 +42,11 @@
         }
 
         function editClient (client){
-            return $http.put(clientApi + "/" + client.client_id, client);
+            return $http.put(clientApi + client.client_id, client);
         }
         
         function deleteClient (clientId){
-            return $http.delete(clientApi + "/" + client.client_id);
+            return $http.delete(clientApi + client.client_id);
         }
         
         return {

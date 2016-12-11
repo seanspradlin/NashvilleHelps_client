@@ -53,12 +53,17 @@
                 )
         }
 
+        function editService(service){
+            return $http.put(servicesApi + service._id, service);
+        }
+
         return {
             getServices: getServices,
             getService: getService,
             getCategories: getCategories,
             addService: addService,
-            deleteService: deleteService
+            deleteService: deleteService,
+            editService: editService
         }
     }
 

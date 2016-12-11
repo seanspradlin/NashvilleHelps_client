@@ -17,8 +17,9 @@
 		<div class="col s12">
 			<ul class="collection">
 				<li class="collection-item" ng-repeat="service in services">
-					{{service.name}} <small>{{service.category}}</small><a modal href="#deleteService" ng-click="deleteServiceConfirm(service)"
-						class="secondary-content"><i class="material-icons">delete</i></a>
+					{{service.name}} <small>{{service.category}}</small>
+					<a modal href="#deleteService" ng-click="deleteServiceConfirm(service)" class="secondary-content"><i class="material-icons">delete</i></a>
+					<a modal href="#editService" ng-click="editServiceConfirm(service)" class="secondary-content"><i class="material-icons">edit</i></a>
 				</li>
 				<li class="collection-item">
 					<a href="" ng-click="showAddInputs()">+ Add Service</a>
@@ -50,15 +51,19 @@
 					<a href ng-click="showAddUserInputs()">+ Add User</a>
 				</li>
 				<li class="collection-item" ng-show="addUserInputs">
-					<div class="input-field">
-						<input required ng-model="newUser.agency" type="text" class="validate">
-						<label for="agency">Agency</label>
+					<div class="row">
+						<div class="col s12">
+							<select ng-model="newUser.agency_id" class="browser-default">
+								<option ng-repeat="agency in agencies" value="{{agency._id}}">{{agency.name}}</option>
+							</select>
+							<label for="agency">Agency</label>
+						</div>
 					</div>
 					<div class="input-field">
 						<input ng-model="newUser.email" type="text" class="validate">
 						<label for="email">User Email</label>
 					</div>
-					<button type="submit" id="submit" ng-click="addUser(newService)" class="blue center-align waves-effect waves-light btn">Add User</button>
+					<button type="submit" id="submit" ng-click="addUser(newUser)" class="center-align waves-effect waves-light btn-flat">Generate Registration Token</button>
 				</li>
 				<li class="collection-item" ng-show="showToken">
 					<p>A registration token for {{newUser.email}} has been generated. This token will be valid for 24 hours.</p>
@@ -74,8 +79,8 @@
 			<ul class="collection">
 				<li class="collection-item" ng-repeat="agency in agencies">
 					{{agency.name}}
-					<a modal href="#deleteAgency" ng-click="updateAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">delete</i></a>
-					<a modal href="#updateAgency" ng-click="updateAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">edit</i></a>
+					<a modal href="#deleteAgency" ng-click="deleteAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">delete</i></a>
+					<a modal href="#editAgency" ng-click="editAgencyConfirm(agency)" class="secondary-content"><i class="material-icons">edit</i></a>
 				</li>
 				<li class="collection-item">
 					<a href ng-click="showAddAgencyInputs()">+ Add Agency</a>
@@ -129,11 +134,31 @@
 	<!-- Modal Structure -->
 	<div id="deleteService" class="modal bottom-sheet">
 		<div class="modal-content">
-			<h4>Are you sure you would like to delete {{confirmService.name}}?</h4>
+			<h5>Are you sure you would like to delete {{confirmService.name}}?</h5>
 			<p class="center-align">If you delete this service, it will be permanently removed from all the agencies associated with it.</p>
 		</div>
 		<div class="modal-footer">
 			<a ng-click="deleteService(confirmService)" class=" modal-action modal-close waves-effect waves-red btn red">Delete Service</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+
+	<div id="editService" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h5>Edit Service Info</h5>
+			<div class="row">
+				<div class="input-field col s12">
+					<input required ng-model="confirmService.name" type="text" class="validate">
+					<label for="name">Service Name</label>
+				</div>
+				<div class="input-field col s12">
+					<input ng-model="confirmService.category" type="text" class="validate">
+					<label for="category">Service Category</label>
+				</div>
+			</div>			
+		</div>
+		<div class="modal-footer">
+			<a ng-click="editService(confirmService)" class="modal-action modal-close waves-effect waves-light btn-flat">Edit Service</a>
 			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 		</div>
 	</div>
@@ -168,7 +193,54 @@
 			<p class="center-align">This process cannot be reversed.</p>
 		</div>
 		<div class="modal-footer">
-			<a ng-click="deleteAgency(confirmAgency)" class=" modal-action modal-close waves-effect waves-red btn red">Delete Agency</a>
+			<a ng-click="deleteAgency(confirmAgency).id" class=" modal-action modal-close waves-effect waves-red btn red">Delete Agency</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+	<div id="editAgency" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h5>Edit Agency Info</h5>
+			<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="agencyName" ng-model="confirmAgency.name" class="validate">
+							<label for="agencyName">Agency Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="streetAddress" ng-model="confirmAgency.street1" class="validate">
+							<label for="streetAddress">Street Address</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="streetAddress2" ng-model="confirmAgency.street2" class="validate">
+							<label for="streetAddress2">Street Address 2</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s5">
+							<input type="text" id="city" ng-model="confirmAgency.city" class="validate">
+							<label for="city">City</label>
+						</div>
+						<div class="input-field col s3">
+							<input type="text" id="state" ng-model="confirmAgency.state" class="validate">
+							<label for="streetAddress">State</label>
+						</div>
+						<div class="input-field col s4">
+							<input type="text" id="zipCode" ng-model="confirmAgency.postal" class="validate">
+							<label for="zipCode">Zip Code</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" id="phoneNumber" ng-model="confirmAgency.phone" class="validate">
+							<label for="phoneNumber">Phone Number</label>
+						</div>
+					</div>
+		</div>
+		<div class="modal-footer">
+			<a ng-click="editAgency(confirmAgency)" class=" modal-action modal-close waves-effect waves-red btn-flat">Edit Agency</a>
 			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 		</div>
 	</div>

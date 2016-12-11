@@ -37,8 +37,11 @@
                 });
         }
 
-        function createRegistrationTokenForAgency(){
-            
+        function createRegistrationTokenForAgency(newUser){
+            return $http.post(agencyApi + newUser.agency_id + "/token/", newUser)
+            .then(function(res){
+                    return res.data;
+                });
         }
         
         function addAgency(agency){
@@ -48,7 +51,10 @@
                 })
         }
         
-        function deleteAgency(){}
+        function deleteAgency(agencyId){
+            return $http.delete(agencyApi + agency_id);
+        }
+
         function updateAgency(agency){
             return $http.put(agencyApi + agency.agency_id, agency)
                 .then(function(res){ 

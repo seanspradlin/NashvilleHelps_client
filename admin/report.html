@@ -12,48 +12,64 @@
         -->
 	<table class="striped">
 		<thead>
-			<h1>Services</h1>
+			<h1>Request by Service</h1>
 			<tr>
 				<td>Service Name</td>
 				<td>Category</td>
 				<td>Agencies Providing</td>
-				<td>Last Month</td>
-				<td>Fulfilled</td>
-				<td>Last Quarter</td>
-				<td>Fulfilled</td>
-				<td>Last Year</td>
-				<td>Fulfilled</td>
+				<td>Month</td>
+				<td>Quarter</td>
+				<td>Year</td>
 				<td>All Time</td>
-				<td>Fulfilled</td>
+				<td>Total Fulfilled</td>
+				<td>Total Not Fulfilled</td>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="referral in referrals">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+			<tr ng-repeat="service in report.services">
+				<td>{{service.name}}</td>
+				<td>{{service.category}}</td>
+				<td>{{service.agencies.length}}</td>
+				<td>{{service.times.thisMonth.length || 0}}</td>
+				<td>{{service.times.thisQuarter.length || 0}}</td>
+				<td>{{service.times.thisYear.length || 0}}</td>
+				<td>{{service.times.allTime.length || 0}}</td>
+				<td>{{service.total}}</td>
+				<td>{{service.referrals.length - service.total}}</td>
 			</tr>
 		</tbody>
 	</table>
 
 	<table class="striped">
 		<thead>
-			<h1>Clients</h1>
+			<h1>Referrals</h1>
 			<tr>
-				<td>Client Name</td>
-				<td>Zip Code</td>
-				<td>Services Requested</td>
-				<td>Services Fulfilled</td>
-				<td>Agencies Helping</td>
-				<td>Date Requested</td>
+				<th>Client Name</td>
+				<th>Zip Code</th>
+				<th>Service</th>
+				<th>Fulfilled</th>
+				<th>Agencies Helping</th>
+				<th>Date Requested</th>
 			</tr>
 		</thead>
-		<tbody></tbody>
+		<tbody>
+			<tr ng-repeat="client in report.clients">
+				<td>{{client.name.first}} {{client.name.last}}</td>
+				<td>{{client.postal}}</td>
+				<td>{{client.service.name}}</td>
+				<td>{{client.fulfilled}}</td>
+				<td>{{client.agency.name || "No agency has provided this service"}}</td>
+				<td>{{client.dateRequested}}</td>
+			</tr>
+			<tr>
+			</tr>
+		</tbody>
 	</table>
+	
+	<div class="card-panel">
+		<h5>Totals:</h5>
+		<p>To date, there have been {{report.clients.length}} requests for {{report.client.total}} clients. Of the client requests, {{report.client.totalFulfilled}} requests have been filled. Requests took on average {{report.client.averageCompletion}} days to complete.</p>
+	</div>
 
 	<table class="striped">
 		<thead>
