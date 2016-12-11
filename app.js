@@ -1,14 +1,14 @@
 (function(){
     angular.module('nashhelps', ['ui.materialize', 'ngRoute']);
-    
+
     angular.module('nashhelps')
-        .constant('api', {'baseUrl': 'http://localhost:8080/api/'});
+        .constant('api', {'baseUrl': 'api/'});
 
     angular.module('nashhelps')
         .config(routes);
-        
+
         routes.$inject = ['$routeProvider', '$locationProvider'];
-        
+
         function routes ($routeProvider, $locationProvider) {
             $routeProvider
                 .when('/', {
